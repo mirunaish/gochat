@@ -32,6 +32,7 @@ I learned:
 - how to create REST routes using Gin
 - error checking, how to create custom errors, handling different error types
 - Go structs and interfaces and how they can be used to mimic OOP
+- GORM, a GO ORM
 
 What worked:
 - 
@@ -49,6 +50,7 @@ Miruna Palaghean
 - https://go.dev/ref/spec
 - https://go.dev/doc/effective_go
 - https://go.dev/doc/code
+- https://gorm.io/docs/index.html
 
 ### Tutorials
 
@@ -56,6 +58,7 @@ Miruna Palaghean
 - https://gowebexamples.com/routes-using-gorilla-mux/
 - https://go.dev/doc/tutorial/web-service-gin
 - https://gowebexamples.com/password-hashing/
+- https://dev.to/karanpratapsingh connecting-to-postgresql-using-gorm-24fj
 
 ### Other
 

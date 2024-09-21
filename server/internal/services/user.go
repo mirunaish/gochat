@@ -1,10 +1,13 @@
 package services
 
 import (
+	"log"
 	"net/http"
 
+	"github.com/google/uuid"
 	"golang.org/x/crypto/bcrypt"
 
+	"github.com/dartmouth-cs98-24f/hack-a-thing-1-miruna-palaghean/server/internal/database"
 	"github.com/dartmouth-cs98-24f/hack-a-thing-1-miruna-palaghean/server/internal/models"
 	"github.com/dartmouth-cs98-24f/hack-a-thing-1-miruna-palaghean/server/internal/utils"
 )
@@ -26,29 +29,38 @@ func checkPassword(hash, password string) bool {
 func CreateUser(email, username, password string) (*models.User, error) {
 	// check inputs TODO
 
+	// hash password
 	password, err := hashPassword(password)
-	if err != nil {return nil, err}
+	if err != nil {
+		log.Fatalf("user service: failed to hash password: %s", err.Error())
+		return nil, err
+	}
 
-	// TODO guid
-	newUser := models.User{ ID: "0", Email: email, Username: username, Password: password }
-	
-	// if email already exists etc, can "throw" a routerError. example
-	return &newUser, &utils.RouterError{ Code: http.StatusConflict, Message: "email already exists" }
+	// create user
+	newUser := models.User{ ID: uuid.New().String(), Email: email, Username: username, Password: password }
+	err = database.CreateUser(&newUser)
+	if err != nil {
+		// TODO better error messages here
+		log.Fatalf("user service: failed to create user: %s", err.Error())
+		return nil, err
+	}
 
-	// TODO create in database
 	return &newUser, nil
 }
 
 func LogIn(email, password string) (string, error) {
 	// find user with email
-	user := models.User{} // TODO
+	user, err := database.GetUserByEmail(email) // TODO
+	if err != nil {
+		return "", &utils.RouterError{Code: http.StatusNotFound, Message: "no account found with that email" }
+	}
 
 	// get password hash from db
 	hash := user.Password
 
 	// check that hash matches given password
 	if !checkPassword(hash, password) {
-		return "", &utils.RouterError{Code: http.StatusBadRequest, Message: "Password is incorrect"}
+		return "", &utils.RouterError{Code: http.StatusBadRequest, Message: "password is incorrect"}
 	}
 
 	return "", nil
