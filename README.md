@@ -55,6 +55,7 @@ Miruna Palaghean
 - https://go.dev/doc/tutorial/getting-started
 - https://gowebexamples.com/routes-using-gorilla-mux/
 - https://go.dev/doc/tutorial/web-service-gin
+- https://gowebexamples.com/password-hashing/
 
 ### Other
 
