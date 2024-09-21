@@ -1,25 +1,61 @@
-# Hack Technology / Project Attempted
+# Go Chatroom
 
+## What you built?
 
-## What you built? 
+I built a chatroom application. Users can create an account and join the
+chatroom and communicate in real time with other users. Messages are not saved,
+so they disappear after a few seconds, making the experience closer to talking
+in-person.
 
-TODO: Short description of what you attempted to build
+### Server
+
+The focus of this project was the Go backend - a websocket server that enables
+bidirectional communication. It connects to a Postgres database that holds
+accounts.
+
+### Client
+
+A minimal client designed to connect to the server. Open multiple
+instances of it to set up a connection.
 
 Include some screenshots.
 [How?](https://help.github.com/articles/about-readmes/#relative-links-and-image-paths-in-readme-files)
 
 ## Who Did What?
 
-TODO: who worked on what part?
+I did everything.
 
 ## What you learned
 
-TODO: what worked / what didn't work
+I learned:
+- the module / package structure of Go projects and how to import files
+- how to create REST routes using Gin
+- error checking, how to create custom errors, handling different error types
+- Go structs and interfaces and how they can be used to mimic OOP
+
+What worked:
+- 
+
+What didn't work:
+- I initially tried gorilla/mux, but that was more difficult to use so I switched to Gin.
 
 ## Authors
 
-TODO: list of authors
+Miruna Palaghean
 
 ## Acknowledgments
 
-TODO: cite any tutorials followed here
+### Documentation
+- https://go.dev/ref/spec
+- https://go.dev/doc/effective_go
+- https://go.dev/doc/code
+
+### Tutorials
+
+- https://go.dev/doc/tutorial/getting-started
+- https://gowebexamples.com/routes-using-gorilla-mux/
+- https://go.dev/doc/tutorial/web-service-gin
+
+### Other
+
+- various online sources, linked in the code where they were used
