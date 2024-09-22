@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>go chat</title>
+    <link rel="icon" href="./res/favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./commonstyle.css" />
+  </head>
+
+  <body>
+    <main>
+      <div class="expand flexcolumn">
+        <div class="gophers" style="background-size: 5%"></div>
+        <div
+          id="canvas"
+          class="flexcolumn"
+          style="
+            width: 90%;
+            height: 90%;
+            border-radius: 20px;
+            overflow: hidden;
+            background-color: white;
+            box-sizing: border-box;
+            align-self: center;
+            position: relative;
+          "
+        >
+          <button id="addgopher" style="align-self: center; margin-top: 10px">
+            add gopher
+          </button>
+          <div
+            id="messagebox"
+            class="flexrow"
+            style="
+              z-index: 99;
+              position: absolute;
+              bottom: 10px;
+              width: 50%;
+              align-self: center;
+              align-items: stretch;
+              gap: 5px;
+            "
+          >
+            <input
+              style="margin: 0; flex-grow: 1"
+              maxlength="50"
+              placeholder="say something..."
+            />
+            <button id="sendMessage">send</button>
+          </div>
+        </div>
+        <div class="gophers" style="background-size: 5%"></div>
+      </div>
+    </main>
+
+    <script type="module" src="index.js"></script>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+.gopher {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  align-items: center;
+  position: absolute;
+  top: 1000;
+}
+
+.messageBubble {
+  width: 100%;
+  height: 100%;
+  background-color: #aac2c9;
+  border-radius: 5px;
+  display: none;
+}
+
+.messageBox {
+  width: 150px;
+  height: 40px;
+}

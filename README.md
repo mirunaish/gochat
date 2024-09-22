@@ -35,7 +35,7 @@ _Custom logger middleware output_
 A minimal HTML+JavaScript client designed to connect to the server.
 
 ![login page](./media/loginpage.png)
-_login page_
+_Login page. Note that I may have made small styling changes since this screenshot was taken_
 
 ## Running instructions
 
@@ -78,8 +78,10 @@ What didn't work:
 - I initially tried gorilla/mux, but that was more difficult to use so I switched to Gin.
 - originally I tried to have multiple group chatrooms, but that got complicated.
 - error checking and reporting in the client is not as robust as it should be, for time reasons
+- the design of the login page isn't responsive (it breaks if the window is resized)
 - I had difficulty setting up the formatter provided by the VS Code Go extension.
 - staticcheck keeps saying functions defined in a different file in the same package are undefined...
+- adding debugging logs in go is difficult (i couldn't log the request body to the console)
 - I made my AWS account more than a year ago so my free tier expired.
 - I tried signing up for Github Student for potential free DataOcean, but they still haven't processed my application.
 - I signed up for Mogenius because they promised free deployment but it was a lie.
@@ -121,3 +123,4 @@ Miruna Palaghean
 - https://go.dev/blog/gophergala
 - https://bitfieldconsulting.com/posts/type-parameters
 - https://go.dev/blog/gopher
+- https://github.com/golang-samples/gopher-vector
