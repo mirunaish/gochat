@@ -19,7 +19,7 @@ func SetUpSocketRoutes(r *gin.Engine) {
 
 	// create a socket connection.
 	// client must send a websocket handshake to this route (?)
-	socketHttp.POST("/subscribe", func(c *gin.Context) {
+	socketHttp.GET("/subscribe", func(c *gin.Context) {
 		userId := c.MustGet("userId").(string)
 		services.Subscribe(c.Writer, c.Request, userId)
 	})

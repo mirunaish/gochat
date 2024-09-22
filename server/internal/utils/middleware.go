@@ -92,7 +92,12 @@ func Authenticate() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		// get jwt header
 		header := c.Request.Header["Authorization"]
-		// TODO fix potential panic here
+		if len(header) != 1 {
+			HandleRouterError(c, &RouterError{Code: http.StatusUnauthorized, Message: "unauthorized: please log in"})
+			c.Abort()
+			return
+		}
+
 		jwt := strings.Split(header[0], " ")[1]
 
 		userId, ok := ParseAndVerifyJwt(jwt)
