@@ -9,11 +9,12 @@ import (
 
 	"github.com/dartmouth-cs98-24f/hack-a-thing-1-miruna-palaghean/server/internal/database"
 	"github.com/dartmouth-cs98-24f/hack-a-thing-1-miruna-palaghean/server/internal/routes"
+	"github.com/dartmouth-cs98-24f/hack-a-thing-1-miruna-palaghean/server/internal/utils"
 )
 
 func main() {
 	// load environment variables from .env
-	err := godotenv.Load("./env")
+	err := godotenv.Load("./.env")
 	if err != nil {
 		log.Fatalf("main: could not load .env: %s", err.Error())
 		return
@@ -27,8 +28,10 @@ func main() {
 	}
 
 	// create router
-	r := gin.Default()
-	routes.SetUpRoutes(r)  // set up user routes
+	r := gin.New()
+	r.Use(utils.Logger()) // want to use my own custom logger
+	r.Use(gin.Recovery()) // recover from panics
+	routes.SetUpRoutes(r) // set up user routes
 
 	// listen on host:port
 	const host = "localhost"

@@ -41,8 +41,8 @@ func CreateJwt(userId, email string) (string, error) {
 		return "", err
 	}
 
-	// TODO add more claims?
-	claims := jwt.MapClaims{"alg": "HS256"}
+	// https://datatracker.ietf.org/doc/html/rfc7519
+	claims := jwt.MapClaims{"iss": os.Getenv("ISSUER"), "alg": "HS256", "sub": userId}
 	token, err := jwt.NewWithClaims(jwt.SigningMethodHS256, claims).SignedString(key)
 	if err != nil {
 		log.Fatalf("auth service: failed to sign jwt")
@@ -53,18 +53,23 @@ func CreateJwt(userId, email string) (string, error) {
 }
 
 // https://www.jetbrains.com/guide/go/tutorials/authentication-for-go-apps/auth/
-func ParseAndVerifyJwt(token string) bool {
+func ParseAndVerifyJwt(tokenSigned string) (string, bool) {
 	key, err := getJwtKey()
 	if err != nil {
-		return false
+		return "", false
 	}
 
-	// TODO
-
 	claims := &jwt.RegisteredClaims{}
+	keyfunc := func(token *jwt.Token) (interface{}, error) {
+		return key, nil
+	}
 
-	jwt.ParseWithClaims(token, claims, func(token *jwt.Token) (interface{}, error) {
-		return jwtKey, nil
-	}) // .WithValidMethods([]string{"HS256"})
-	return true
+	_, err = jwt.NewParser(jwt.WithValidMethods([]string{"HS256"}), jwt.WithIssuer(os.Getenv("ISSUER"))).ParseWithClaims(tokenSigned, claims, keyfunc)
+	if err != nil {
+		return "", false
+	}
+
+	userId, err := claims.GetSubject()
+	// if no error, token was valid
+	return userId, err != nil
 }

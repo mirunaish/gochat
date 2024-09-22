@@ -66,16 +66,20 @@ func JSONBinder[T any]() gin.HandlerFunc {
 func Authenticate() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		// get jwt header
-		header, exists := c.Request.Header["Authorization"]
+		header := c.Request.Header["Authorization"]
 		// TODO fix potential panic here
 		jwt := strings.Split(header[0], " ")[1]
 
+		userId, ok := ParseAndVerifyJwt(jwt)
+
 		// verify that jwt header is valid
-		if !exists || !ParseAndVerifyJwt(jwt) {
+		if !ok {
 			HandleRouterError(c, &RouterError{Code: http.StatusUnauthorized, Message: "unauthorized: please log in"})
 			c.Abort()
 			return
 		}
+
+		c.Set("userId", userId)
 
 		c.Next()
 	}

@@ -20,6 +20,9 @@ The focus of this project was the Go backend - a websocket server that enables
 bidirectional communication. It connects to a Postgres database that holds
 accounts.
 
+![generics](media/first_ping.png)
+*first ping*
+
 ### Client
 
 A minimal client designed to connect to the server. Open multiple
@@ -30,9 +33,11 @@ Include some screenshots.
 
 ## Running instructions
 
-1. Generate a secret key for signing JWTs.
-2. Duplicate `.env.template` and rename it to `.env`. Fill in the values, including the JWT key generated earlier.
-3. Run `go run ./cmd/`
+1. Create a postgres database. Tables will be created automatically when first running the program.
+2. Generate a secret key for signing JWTs.
+3. Duplicate `.env.template` and rename it to `.env`. Fill in the values.
+4. `cd server`
+5. Run `go run ./cmd/`
 
 ## Who Did What?
 

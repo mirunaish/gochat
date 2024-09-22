@@ -12,7 +12,10 @@ import (
 
 // set up the user-related REST routes: signup, login etc
 func SetUpRoutes(r *gin.Engine) {
-	r.Use(utils.Logger())
+	// ping
+	r.GET("/ping", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{"message": "pong"})
+	})
 
 	// sign up
 	r.POST("/signup", utils.JSONBinder[models.SignupRequest](), func(c *gin.Context) {
