@@ -10,9 +10,3 @@ type User struct {
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
-
-type UserRequest struct {
-	Email    string `json:"email"`
-	Username string `json:"username"`
-	Password string `json:"password"` // unencoded
-}

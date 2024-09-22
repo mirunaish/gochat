@@ -30,5 +30,7 @@ func Connect() error {
 		log.Fatal("database: failed to migrate models")
 		return err
 	}
+
+	return nil
 }
 

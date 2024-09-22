@@ -12,25 +12,42 @@ import (
 
 // set up the user-related REST routes: signup, login etc
 func SetUpRoutes(r *gin.Engine) {
-	// create new account
-	r.POST("/signup", func(c *gin.Context) {
-		// create the new user struct
-		var userRequest models.UserRequest
+	r.Use(utils.Logger())
 
-		// bind/parse the received JSON to the user struct
-		err := c.BindJSON(&userRequest);
-		utils.HandleRouterError(c, err)
+	// sign up
+	r.POST("/signup", utils.JSONBinder[models.SignupRequest](), func(c *gin.Context) {
+		// get user request from middleware
+		userRequest := c.MustGet("request").(models.SignupRequest)
 
-		newUser, err := services.CreateUser(userRequest.Email, userRequest.Username, userRequest.Password);
-		utils.HandleRouterError(c, err)
+		jwt, err := services.SignUp(userRequest.Email, userRequest.Username, userRequest.Password)
+		if err != nil {
+			utils.HandleRouterError(c, err)
+			return
+		}
 
-		c.IndentedJSON(http.StatusOK, newUser)  // send response with new user
+		c.JSON(http.StatusOK, gin.H{"token": jwt})
 	})
 
 	// login
-	r.POST("/login", func(c *gin.Context) {
-		return
+	r.POST("/login", utils.JSONBinder[models.LoginRequest](), func(c *gin.Context) {
+		// get login request from middleware
+		loginRequest := c.MustGet("request").(models.LoginRequest)
+
+		jwt, err := services.LogIn(loginRequest.Email, loginRequest.Password)
+		if err != nil {
+			utils.HandleRouterError(c, err)
+			return
+		}
+
+		c.JSON(http.StatusOK, gin.H{"token": jwt})
 	})
+
+	// https://gin-gonic.com/zh-tw/docs/examples/using-middleware/
+	// create group of authorized routes
+	authorized := r.Group("/")
+	authorized.Use(utils.Authenticate())
+
+	// authorized.GET() // etc
 
 	// change name / password etc
 	// TODO in the future

@@ -2,6 +2,7 @@ package utils
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -11,9 +12,10 @@ import (
 
 // define custom error that contains the http code
 type RouterError struct {
-	Code int
+	Code    int
 	Message string
 }
+
 // implement Error method of the error interface
 func (e *RouterError) Error() string {
 	return fmt.Sprintf("%d: %s", e.Code, e.Message)
@@ -35,7 +37,9 @@ func HandleRouterError(c *gin.Context, err error) {
 		status = http.StatusInternalServerError
 	}
 
+	log.Fatalf("router error: %s", err.Error())
+
 	// send error to client
 	// gin.H creates object that easily maps to JSON for responses
-	c.IndentedJSON(status, gin.H{ "message": err.Error() })
+	c.IndentedJSON(status, gin.H{"message": err.Error()})
 }
