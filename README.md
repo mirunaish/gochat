@@ -110,6 +110,7 @@ Miruna Palaghean
 - [Connecting to PostgreSQL using GORM](https://dev.to/karanpratapsingh/connecting-to-postgresql-using-gorm-24fj)
 - [coder/websocket chat example](https://github.com/coder/websocket/blob/master/internal/examples/chat/chat.go)
 - [CSS Flexbox Layout Guide](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
+- [Create a JavaScript AJAX Post Request](https://code.tutsplus.com/create-a-javascript-ajax-post-request-with-and-without-jquery--cms-39195a)
 
 ### Other
 

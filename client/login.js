@@ -1,25 +1,20 @@
 // adapted from https://medium.com/swlh/how-to-create-your-first-login-page-with-html-css-and-javascript-602dd71144f1
 
-const signupForm = document.getElementById("signup-form");
-const signupButton = document.getElementById("signup-submit");
-
-// TODO report errors
-// const signupErrorMsg = document.getElementById("signup-error-msg");
-
 /** save the given jwt into a cookie */
 function setCookie(jwt) {
   // https://www.w3schools.com/js/js_cookies.asp
   // https://tkacz.pro/how-to-securely-store-jwt-tokens/
-  document.cookie = "jwt=" + jwt + "; secure; httpOnly; sameSite=Lax;";
+  // i removed httpOnly because it was already set
+  document.cookie = "jwt=" + jwt + "; secure; sameSite=Lax;";
 }
 
 /** make request to server */
 function AjaxPost(url, body, handler) {
   try {
     let xhr = new XMLHttpRequest();
-    xhr.open("GET", url, true);
+    xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-    xhr.send(body);
+    xhr.send(JSON.stringify(body));
 
     xhr.onload = () => handler(xhr.status, xhr.response);
   } catch {
@@ -29,6 +24,12 @@ function AjaxPost(url, body, handler) {
 
 // -------- signup ---------
 
+const signupForm = document.getElementById("signup-form");
+const signupButton = document.getElementById("signup-submit");
+
+// TODO report errors
+// const signupErrorMsg = document.getElementById("signup-error-msg");
+
 signupButton.addEventListener("click", (e) => {
   e.preventDefault();
   const username = signupForm.username.value;
@@ -37,7 +38,7 @@ signupButton.addEventListener("click", (e) => {
 
   // make signup request to server
   AjaxPost(
-    "localhost:5000/signup",
+    "http://localhost:5000/signup",
     { username, email, password },
     (status, response) => {
       console.log(status, response);
