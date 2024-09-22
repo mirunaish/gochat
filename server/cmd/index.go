@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"net/http"
 	"os"
 
 	"github.com/gin-gonic/gin"
@@ -28,10 +29,16 @@ func main() {
 		return
 	}
 
-	r := gin.New()              // create router
-	r.Use(utils.Logger())       // want to use my own custom logger
-	r.Use(gin.Recovery())       // recover from panics
-	r.Use(utils.EnableCORS())   // enable cors
+	r := gin.New()            // create router
+	r.Use(utils.Logger())     // want to use my own custom logger
+	r.Use(gin.Recovery())     // recover from panics
+	r.Use(utils.EnableCORS()) // enable cors
+
+	// ping
+	r.GET("/ping", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{"message": "pong"})
+	})
+
 	routes.SetUpRoutes(r)       // set up user routes
 	routes.SetUpSocketRoutes(r) // set up socket-related http routes
 

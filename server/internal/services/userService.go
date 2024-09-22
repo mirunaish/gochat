@@ -7,6 +7,7 @@ import (
 
 	"github.com/dartmouth-cs98-24f/hack-a-thing-1-miruna-palaghean/server/internal/database"
 	"github.com/dartmouth-cs98-24f/hack-a-thing-1-miruna-palaghean/server/internal/models"
+	"github.com/dartmouth-cs98-24f/hack-a-thing-1-miruna-palaghean/server/internal/socket"
 	"github.com/dartmouth-cs98-24f/hack-a-thing-1-miruna-palaghean/server/internal/utils"
 )
 
@@ -32,4 +33,23 @@ func CreateUser(email, username, password string) (*models.User, error) {
 	}
 
 	return &newUser, nil
+}
+
+func GetActiveUsers() ([]*models.User, error) {
+	subscribers := socket.GetAllSubscribers()
+
+	activeUsers := []*models.User{}
+	// loop over subscribers and append user information
+	for _, sub := range subscribers {
+		// get user with this user id
+		user, err := database.GetUser(sub.UserId)
+		if err != nil {
+			log.Fatalf("user service: failed to get users: %s", err.Error())
+			return nil, err
+		}
+
+		activeUsers = append(activeUsers, user)
+	}
+
+	return activeUsers, nil
 }
