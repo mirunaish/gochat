@@ -20,8 +20,14 @@ The focus of this project was the Go backend - a websocket server that enables
 bidirectional communication. It connects to a Postgres database that holds
 accounts.
 
-![generics](media/first_ping.png)
-*first ping*
+![ping](media/first_ping.png)
+*First ping*
+
+![signup](media/signup.png)
+*Signup worked on the first try! Go linting is pretty good*
+
+![console output](media/logger_output.png)
+*Custom logger middleware output*
 
 ### Client
 

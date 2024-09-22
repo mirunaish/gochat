@@ -4,6 +4,7 @@ import (
 	"encoding/base64"
 	"log"
 	"os"
+	"time"
 
 	"github.com/golang-jwt/jwt/v5"
 	"golang.org/x/crypto/bcrypt"
@@ -42,7 +43,7 @@ func CreateJwt(userId, email string) (string, error) {
 	}
 
 	// https://datatracker.ietf.org/doc/html/rfc7519
-	claims := jwt.MapClaims{"iss": os.Getenv("ISSUER"), "alg": "HS256", "sub": userId}
+	claims := jwt.MapClaims{"iss": os.Getenv("ISSUER"), "alg": "HS256", "sub": userId, "iat": time.Now().Unix()}
 	token, err := jwt.NewWithClaims(jwt.SigningMethodHS256, claims).SignedString(key)
 	if err != nil {
 		log.Fatalf("auth service: failed to sign jwt")

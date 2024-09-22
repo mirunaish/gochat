@@ -25,7 +25,7 @@ func Logger() gin.HandlerFunc {
 
 		method := c.Request.Method
 		path := c.Request.URL.Path
-		duration := time.Since(t)
+		duration := time.Since(t).Milliseconds()
 		status := c.Writer.Status()
 
 		// color the status code
@@ -37,7 +37,7 @@ func Logger() gin.HandlerFunc {
 		}
 
 		// log response
-		log.Printf("%s %s: %s %d %s after %d ms ", method, path, color, status, RESET, duration)
+		log.Printf("%s %s: %s%d%s after %d ms ", method, path, color, status, RESET, duration)
 	}
 }
 

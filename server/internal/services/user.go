@@ -22,6 +22,7 @@ func CreateUser(email, username, password string) (*models.User, error) {
 	}
 
 	// create user
+	// https://pkg.go.dev/github.com/google/uuid
 	newUser := models.User{ID: uuid.New().String(), Email: email, Username: username, Password: password}
 	err = database.CreateUser(&newUser)
 	if err != nil {
