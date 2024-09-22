@@ -1,0 +1,57 @@
+html,
+body,
+main {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-size: 16px;
+  font-family: "Arial";
+  color: #29273d;
+}
+
+body {
+  background-color: #a8ebfe;
+}
+
+h2 {
+  margin-top: 0px;
+}
+
+button {
+  background-color: #5adaff;
+  color: #29273d;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 25px;
+  font-size: 16px;
+}
+
+input {
+  color: #29273d;
+  font-size: 16px;
+  padding: 2px;
+  margin-top: 2px;
+  margin-bottom: 12px;
+}
+
+.gophers {
+  background-image: url("./header.jpg");
+  background-repeat: repeat-x;
+  background-size: 20%;
+  background-position: center;
+}
+
+.expand {
+  width: 100%;
+  height: 100%;
+}
+
+.flexrow {
+  display: flex;
+  flex-direction: row;
+}
+
+.flexcolumn {
+  display: flex;
+  flex-direction: column;
+}

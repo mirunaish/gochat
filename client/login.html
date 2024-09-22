@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- https://www.freecodecamp.org/news/html-starter-template-a-basic-html5-boilerplate-for-index-html/ -->
+    <meta charset="UTF-8" />
+    <title>go chat</title>
+    <link rel="icon" href="./favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="./loginstyle.css" />
+    <script src="login.js"></script>
+  </head>
+
+  <body class="expand">
+    <main class="expand">
+      <div class="expand flexcolumn" style="align-items: stretch">
+        <!-- gophers bar at the top -->
+        <div class="gophers" style="flex-grow: 1"></div>
+
+        <!-- form etc -->
+        <div
+          class="flexrow"
+          style="
+            width: 75%;
+            height: 60%;
+            border-radius: 20px;
+            overflow: hidden;
+            background-color: white;
+            padding: 20px;
+            box-sizing: border-box;
+            align-self: center;
+            gap: 20px;
+          "
+        >
+          <div style="flex: 0 1">
+            <img src="./gogopher.jpg" style="height: 100%" />
+          </div>
+
+          <!-- this div contains both forms -->
+          <div
+            class="flexrow"
+            style="
+              width: 100%;
+              padding: 10px;
+              box-sizing: border-box;
+              flex-grow: 1;
+              align-self: center;
+              gap: 25px;
+            "
+          >
+            <div class="expand flexcolumn">
+              <h2>sign up</h2>
+
+              <form id="signup-form"></form>
+              <label for="username">username</label>
+              <input name="username" form="signup-form" />
+              <label for="email">email</label>
+              <input name="email" form="signup-form" />
+              <label for="username">password</label>
+              <input name="password" form="signup-form" />
+
+              <button
+                id="signup-submit"
+                style="align-self: center; margin-top: 20px"
+              >
+                sign up
+              </button>
+            </div>
+
+            <div><h2>or...</h2></div>
+
+            <div class="expand flexcolumn">
+              <h2>log in</h2>
+
+              <form id="login-form"></form>
+              <label for="email">email</label>
+              <input name="email" form="login-form" />
+              <label for="username">password</label>
+              <input name="password" form="login-form" />
+
+              <button
+                id="login-submit"
+                style="align-self: center; margin-top: 20px"
+              >
+                log in
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- gophers bar at bottom -->
+        <div class="gophers" style="flex-grow: 1"></div>
+      </div>
+    </main>
+  </body>
+</html>

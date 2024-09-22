@@ -2,12 +2,13 @@
 
 ## What you built?
 
-I had two goals for this assignment: 
+I had two goals for this assignment:
+
 1. learn a new programming language. I chose Go because it has been increasing
-in popularity and it seemed somewhat different from other programming languages
-I know.
+   in popularity and it seemed somewhat different from other programming languages
+   I know.
 2. deploy a dockerized application on AWS. Previously my only deployment
-experience was in Render, and AWS and Docker seem widely used.
+   experience was in Render, and AWS and Docker seem widely used.
 
 I built a simple chatroom application. Users can create an account and join the
 chatroom and communicate in real time with other users. Messages are not saved,
@@ -21,21 +22,20 @@ bidirectional communication. It connects to a Postgres database that holds
 accounts.
 
 ![ping](media/first_ping.png)
-*First ping*
+_First ping_
 
 ![signup](media/signup.png)
-*Signup worked on the first try! Go linting is pretty good*
+_Signup worked on the first try! Go linting is pretty good_
 
 ![console output](media/logger_output.png)
-*Custom logger middleware output*
+_Custom logger middleware output_
 
 ### Client
 
-A minimal client designed to connect to the server. Open multiple
-instances of it to set up a connection.
+A minimal HTML+JavaScript client designed to connect to the server.
 
-Include some screenshots.
-[How?](https://help.github.com/articles/about-readmes/#relative-links-and-image-paths-in-readme-files)
+![login page](./media/loginpage.png)
+_login page_
 
 ## Running instructions
 
@@ -52,6 +52,7 @@ I did everything. (see Acknowledgments section for links to tutorials)
 ## What you learned
 
 I learned:
+
 - the module / package structure of Go projects and how to import files
 - how to create REST routes and middleware using Gin
 - generic functions and type parameters in Go
@@ -64,16 +65,19 @@ I learned:
 - how to create a complex websocket server with multiple subscribers that don't all communicate to each other
 - how to authenticate requests sent over websockets
 - how to color console output
+- how to store jwt in a cookie using javascript
 
 ![generics](media/generics.png)
-*image source: [Type parameters in Go](https://bitfieldconsulting.com/posts/type-parameters)*
 
 What worked:
+
 - everything, eventually, hopefully
 
 What didn't work:
+
 - I initially tried gorilla/mux, but that was more difficult to use so I switched to Gin.
 - originally I tried to have multiple group chatrooms, but that got complicated.
+- error checking and reporting in the client is not as robust as it should be, for time reasons
 - I had difficulty setting up the formatter provided by the VS Code Go extension.
 - staticcheck keeps saying functions defined in a different file in the same package are undefined...
 - I made my AWS account more than a year ago so my free tier expired.
@@ -88,11 +92,13 @@ Miruna Palaghean
 ## Acknowledgments
 
 ### Documentation
+
 - [The Go Programming Language Specification](https://go.dev/ref/spec)
 - [Effective Go](https://go.dev/doc/effective_go)
 - [How to Write Go Code](https://go.dev/doc/code)
 - [GORM](https://gorm.io/docs/index.html)
 - [golang-jwt](https://golang-jwt.github.io/jwt/usage/create/)
+- [CSS: Cascading Style Sheets](https://developer.mozilla.org/en-US/docs/Web/CSS)
 
 ### Tutorials
 
@@ -103,7 +109,14 @@ Miruna Palaghean
 - [Password Hashing](https://gowebexamples.com/password-hashing/)
 - [Connecting to PostgreSQL using GORM](https://dev.to/karanpratapsingh/connecting-to-postgresql-using-gorm-24fj)
 - [coder/websocket chat example](https://github.com/coder/websocket/blob/master/internal/examples/chat/chat.go)
+- [CSS Flexbox Layout Guide](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
 
 ### Other
 
 - various online sources that i glanced at briefly, linked in the code where they were used
+
+### Image sources
+
+- https://go.dev/blog/gophergala
+- https://bitfieldconsulting.com/posts/type-parameters
+- https://go.dev/blog/gopher
