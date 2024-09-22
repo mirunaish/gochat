@@ -57,7 +57,12 @@ I learned:
 - generic functions and type parameters in Go
 - error checking in Go, how to create custom errors, handling different error types
 - Go structs and interfaces and how they can be used to mimic OOP
+- working with pointers in Go
+- deferring functions to clean up / close resources before returning / panicking
 - GORM, a GO ORM
+- how to combine http and websocket in a single app
+- how to create a complex websocket server with multiple subscribers that don't all communicate to each other
+- how to authenticate requests sent over websockets
 - how to color console output
 
 ![generics](media/generics.png)
@@ -68,7 +73,9 @@ What worked:
 
 What didn't work:
 - I initially tried gorilla/mux, but that was more difficult to use so I switched to Gin.
+- originally I tried to have multiple group chatrooms, but that got complicated.
 - I had difficulty setting up the formatter provided by the VS Code Go extension.
+- staticcheck keeps saying functions defined in a different file in the same package are undefined...
 - I made my AWS account more than a year ago so my free tier expired.
 - I tried signing up for Github Student for potential free DataOcean, but they still haven't processed my application.
 - I signed up for Mogenius because they promised free deployment but it was a lie.
