@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -27,16 +28,16 @@ func main() {
 		return
 	}
 
-	// create router
-	r := gin.New()
-	r.Use(utils.Logger()) // want to use my own custom logger
-	r.Use(gin.Recovery()) // recover from panics
-	routes.SetUpRoutes(r) // set up user routes
+	r := gin.New()              // create router
+	r.Use(utils.Logger())       // want to use my own custom logger
+	r.Use(gin.Recovery())       // recover from panics
+	routes.SetUpRoutes(r)       // set up user routes
+	routes.SetUpSocketRoutes(r) // set up socket-related http routes
 
 	// listen on host:port
-	const host = "localhost"
-	const port = 80
-	err = r.Run(fmt.Sprintf("%s:%d", host, port))
+	host := os.Getenv("HOST")
+	port := os.Getenv("PORT")
+	err = r.Run(fmt.Sprintf("%s:%s", host, port))
 	if err != nil {
 		log.Fatalf("main: failed to run http server: %s", err.Error())
 	}

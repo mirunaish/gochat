@@ -99,9 +99,10 @@ Miruna Palaghean
 - [Get started with Go](https://go.dev/doc/tutorial/getting-started)
 - [Routing (using gorilla/mux)](https://gowebexamples.com/routes-using-gorilla-mux/)
 - [Developing a RESTful API with Go and Gin](https://go.dev/doc/tutorial/web-service-gin)
+- [Gin Custom Middleware](https://gin-gonic.com/docs/examples/custom-middleware/)
 - [Password Hashing](https://gowebexamples.com/password-hashing/)
 - [Connecting to PostgreSQL using GORM](https://dev.to/karanpratapsingh/connecting-to-postgresql-using-gorm-24fj)
-- [Gin Custom Middleware](https://gin-gonic.com/docs/examples/custom-middleware/)
+- [coder/websocket chat example](https://github.com/coder/websocket/blob/master/internal/examples/chat/chat.go)
 
 ### Other
 

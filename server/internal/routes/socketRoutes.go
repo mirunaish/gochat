@@ -12,7 +12,7 @@ import (
 )
 
 // set up the http routes that accept a new socket connection etc
-func setUpSocketRoutes(r *gin.Engine) {
+func SetUpSocketRoutes(r *gin.Engine) {
 	// group socket-related http routes
 	socketHttp := r.Group("/")
 	socketHttp.Use(utils.Authenticate())
@@ -21,7 +21,7 @@ func setUpSocketRoutes(r *gin.Engine) {
 	// client must send a websocket handshake to this route (?)
 	socketHttp.POST("/subscribe", func(c *gin.Context) {
 		userId := c.MustGet("userId").(string)
-		services.Subscribe(userId)
+		services.Subscribe(c.Writer, c.Request, userId)
 	})
 
 	// send message to someone. request made over http, server will forward to other user over socket

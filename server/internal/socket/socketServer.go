@@ -59,15 +59,14 @@ func AddSubscriber(userId string, conn *websocket.Conn) {
 	server.Subscribers[userId] = sub
 }
 
-// remove a subscriber from the server
-// if subscriber doesn't exist / is offline, do nothing
+// remove a subscriber from the server.
+// if subscriber doesn't exist / is offline, do nothing.
+// does not close the websocket connection
 func RemoveSubscriber(userId string) {
 	server.subscribersMutex.Lock()
 	defer server.subscribersMutex.Unlock()
 
-	// assuming websocket connection already closed (?)
-	// sub := GetSubscriber(userId)
-	// sub.Socket.Close(websocket.StatusNormalClosure, "closed on request")
+	// assuming someone else has closed / will close websocket connection
 
 	delete(server.Subscribers, userId) // delete subscriber from map
 }
