@@ -40,6 +40,21 @@ type ChatServer struct {
 // important to access server only through below functions to ensure locks are obtained
 var server ChatServer = ChatServer{}
 
+// send a message to all subscribers
+func Broadcast(message models.MessageOut) error {
+	server.subscribersMutex.Lock()         // lock subscribers...
+	defer server.subscribersMutex.Unlock() // before returning, unlock the resource
+
+	for _, sub := range server.Subscribers {
+		if sub.UserId == message.SenderId { // don't send to sender
+			continue
+		}
+		sub.Send(message)
+	}
+
+	return nil
+}
+
 // get a subscriber
 func GetSubscriber(userId string) *Subscriber {
 	server.subscribersMutex.Lock()
@@ -52,6 +67,21 @@ func GetSubscriber(userId string) *Subscriber {
 	}
 
 	return &sub
+}
+
+// return slice of pointers to copies of all subscribers
+func GetAllSubscribers() []*Subscriber {
+	server.subscribersMutex.Lock()
+	defer server.subscribersMutex.Unlock() // before returning, unlock the resource
+
+	subscribers := []*Subscriber{} // create new empty array
+
+	// map over all subscribers and append copies to array
+	for _, sub := range server.Subscribers { // here sub is a copy
+		subscribers = append(subscribers, &sub) // pointer to the copy
+	}
+
+	return subscribers
 }
 
 func AddSubscriber(userId string, conn *websocket.Conn) {

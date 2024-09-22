@@ -27,7 +27,21 @@ func SetUpSocketRoutes(r *gin.Engine) {
 	// send message to someone. request made over http, server will forward to other user over socket
 	socketHttp.POST("/publish", utils.JSONBinder[models.MessageIn](), func(c *gin.Context) {
 		message := c.MustGet("request").(models.MessageIn)
-		err := services.Forward(message)
+		userId := c.MustGet("userId").(string)
+		err := services.Forward(message, userId)
+		if err != nil {
+			utils.HandleRouterError(c, err)
+			return
+		}
+
+		c.Status(http.StatusOK)
+	})
+
+	// send message to everyone. request made over http, server will forward to other user over socket
+	socketHttp.POST("/broadcast", utils.JSONBinder[models.BroadcastIn](), func(c *gin.Context) {
+		message := c.MustGet("request").(models.BroadcastIn)
+		userId := c.MustGet("userId").(string)
+		err := services.Broadcast(message, userId)
 		if err != nil {
 			utils.HandleRouterError(c, err)
 			return
@@ -42,5 +56,4 @@ func SetUpSocketRoutes(r *gin.Engine) {
 		socket.RemoveSubscriber(userId)
 		c.Status(http.StatusOK)
 	})
-
 }
