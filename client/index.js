@@ -1,6 +1,5 @@
-import net from "net";
-import { random, getCookie, AjaxPost } from "./common.js";
-import { SERVER_HOST, SERVER_PORT, SERVER_URL } from "./consts.js";
+import { random, getCookie, AjaxGet, AjaxPost } from "./common.js";
+import { SERVER_HOST, SERVER_PORT } from "./consts.js";
 
 // if no jwt, go to login page
 if (getCookie() == undefined || getCookie() == "")
@@ -44,7 +43,7 @@ function addGopher(id, name) {
 }
 
 // message hiding timeouts - so i can clear them
-timeoutIds = {};
+const timeoutIds = {};
 
 // show message bubble above user that sent it
 function handleMessage(message) {
@@ -79,20 +78,32 @@ document.getElementById("sendMessage").addEventListener("click", (e) => {
 
 // get all users to draw initial gophers on the screen
 AjaxGet("/allUsers", (status, body) => {
+  // TODO add all users to backend
   body.users.forEach((user) => {
     addGopher(user.id, user.username);
   });
 });
 
 // create websocket client
-// https://cs.lmu.edu/~ray/notes/jsnetexamples/
-const client = new net.Socket();
-client.connect({ port: SERVER_PORT, host: SERVER_HOST });
+const socket = new WebSocket(`ws://${SERVER_HOST}:${SERVER_PORT}/subscribe`);
 
 // handle received data
-client.on("data", (data) => {
-  // must first convert to string and then to json
-  dataJson = JSON.parse(data.toString("utf-8"));
-  console.log(dataJson);
-  handleMessage(dataJson);
-});
+socket.onmessage = (event) => {
+  const data = JSON.parse(event.data);
+  console.log(data);
+
+  switch (data.messageType) {
+    case "text":
+      handleMessage(data);
+      break;
+    case "joined":
+      addGopher(data.senderId, data.message);
+      break;
+    case "left":
+      // remove gopher
+      document.getElementById(data.senderId).remove();
+      break;
+    default:
+      console.log("received unknown message type:", event.data);
+  }
+};
