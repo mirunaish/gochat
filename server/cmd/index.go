@@ -31,6 +31,7 @@ func main() {
 	r := gin.New()              // create router
 	r.Use(utils.Logger())       // want to use my own custom logger
 	r.Use(gin.Recovery())       // recover from panics
+	r.Use(utils.EnableCORS())   // enable cors
 	routes.SetUpRoutes(r)       // set up user routes
 	routes.SetUpSocketRoutes(r) // set up socket-related http routes
 

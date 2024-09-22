@@ -41,6 +41,31 @@ func Logger() gin.HandlerFunc {
 	}
 }
 
+func EnableCORS() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		// respond to cors preflight requests
+		// if the type is options, respond with cors headers
+		if c.Request.Method == "OPTIONS" {
+			// https://stackoverflow.com/questions/22972066/how-to-handle-preflight-cors-requests-on-a-go-server
+			c.Writer.Header().Add("Access-Control-Allow-Origin", "*")
+			c.Writer.Header().Add("Vary", "Origin")
+			c.Writer.Header().Add("Vary", "Access-Control-Request-Method")
+			c.Writer.Header().Add("Vary", "Access-Control-Request-Headers")
+			c.Writer.Header().Add("Access-Control-Allow-Headers", "Content-Type, Origin, Accept, token")
+			c.Writer.Header().Add("Access-Control-Allow-Methods", "GET, POST,OPTIONS")
+
+			c.Status(http.StatusOK)
+			c.Abort()
+		}
+
+		// to all other requests, add cors header
+		// https://www.stackhawk.com/blog/golang-cors-guide-what-it-is-and-how-to-enable-it/
+		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+
+		c.Next()
+	}
+}
+
 // https://bitfieldconsulting.com/posts/type-parameters
 // middleware that parses JSON to struct of type T
 func JSONBinder[T any]() gin.HandlerFunc {
