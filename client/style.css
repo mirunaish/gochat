@@ -8,14 +8,22 @@
 }
 
 .messageBubble {
-  width: 100%;
-  height: 100%;
-  background-color: #aac2c9;
-  border-radius: 5px;
+  max-width: 100%;
+  background-color: #dceef3;
+  border-radius: 8px;
   display: none;
+  overflow-wrap: break-word;
+  padding: 8px 16px 8px 16px;
+  box-sizing: border-box;
+  text-align: center;
 }
 
 .messageBox {
-  width: 150px;
-  height: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: center;
+  width: 180px;
+  height: 72px;
+  overflow: visible;
 }

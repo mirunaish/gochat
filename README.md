@@ -22,12 +22,15 @@ bidirectional communication. It connects to a Postgres database that holds
 accounts.
 
 ![ping](media/first_ping.png)
+
 _First ping_
 
 ![signup](media/signup.png)
+
 _Signup worked on the first try! Go linting is pretty good_
 
 ![console output](media/logger_output.png)
+
 _Custom logger middleware output_
 
 ### Client
@@ -35,7 +38,12 @@ _Custom logger middleware output_
 A minimal HTML+JavaScript client designed to connect to the server.
 
 ![login page](./media/loginpage.png)
+
 _Login page. Note that I may have made small styling changes since this screenshot was taken_
+
+![go chat](./media/go_chat.png)
+
+_chat page_
 
 ## Running instructions
 
@@ -78,8 +86,10 @@ What didn't work:
 
 - I initially tried gorilla/mux, but that was more difficult to use so I switched to Gin.
 - originally I tried to have multiple group chatrooms, but that got complicated.
+- then i wanted to implement direct messages between two users, but the client UI would've been complicated.
 - error checking and reporting in the client is not as robust as it should be, for time reasons
 - the design of the login page isn't responsive (it breaks if the window is resized)
+- for some reason the layout breaks on Firefox (but not on Firefox Nightly)
 - I had difficulty setting up the formatter provided by the VS Code Go extension.
 - staticcheck keeps saying functions defined in a different file in the same package are undefined...
 - adding debugging logs in go is difficult (i couldn't log the request body to the console)

@@ -26,7 +26,7 @@ func SetUpSocketRoutes(r *gin.Engine) {
 			utils.HandleRouterError(c, err)
 			return
 		}
-		c.Status(http.StatusOK)
+		c.Status(http.StatusSwitchingProtocols)
 	})
 
 	// send message to someone. request made over http, server will forward to other user over socket
@@ -39,7 +39,7 @@ func SetUpSocketRoutes(r *gin.Engine) {
 			return
 		}
 
-		c.Status(http.StatusOK)
+		c.JSON(http.StatusOK, gin.H{"message": message})
 	})
 
 	// send message to everyone. request made over http, server will forward to other user over socket
@@ -52,13 +52,13 @@ func SetUpSocketRoutes(r *gin.Engine) {
 			return
 		}
 
-		c.Status(http.StatusOK)
+		c.JSON(http.StatusOK, gin.H{"message": message})
 	})
 
 	// close connection (?)
 	socketHttp.DELETE("/leave", func(c *gin.Context) {
 		userId := c.MustGet("userId").(string)
 		socket.RemoveSubscriber(userId)
-		c.Status(http.StatusOK)
+		c.Status(http.StatusNoContent)
 	})
 }

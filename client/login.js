@@ -22,7 +22,7 @@ signupButton.addEventListener("click", (e) => {
     "/signup",
     { username, email, password },
     (status, response) => {
-      setCookie(response);
+      setCookie(response.token);
       window.location.assign("./index.html");
     }
   );

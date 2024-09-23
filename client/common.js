@@ -36,12 +36,17 @@ export function makeRequest(method, url, body, handler) {
   })
     .then(async (response) => {
       if (response.ok) {
-        const data = await response.json();
+        let data;
+        try {
+          data = await response.json();
+        } catch (e) {
+          console.log("failed to get response data");
+        }
         handler(response.status, data);
       } else throw new Error(`status code was ${response.status}`);
     })
     .catch((error) => {
       alert("something went wrong. please try again");
-      console.error(error);
+      console.error("request error:", error);
     });
 }

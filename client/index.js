@@ -5,6 +5,16 @@ import { SERVER_HOST, SERVER_PORT } from "./consts.js";
 if (getCookie() == undefined || getCookie() == "" || getCookie() == "undefined")
   window.location.assign("./login.html");
 
+// delete all user gophers from the screen
+function deleteGophers() {
+  const gophers = Array.from(document.getElementById("canvas").children);
+  gophers.forEach((gopher) => {
+    // skip message div
+    if (gopher.id == "donotdelete") return;
+    gopher.remove(); // remove this child
+  });
+}
+
 // add a user gopher on the screen
 function addGopher(id, name) {
   const gopher = document.createElement("div"); // div that contains everything
@@ -47,38 +57,47 @@ const timeoutIds = {};
 
 // show message bubble above user that sent it
 function handleMessage(message) {
-  const { userId, message: text } = message;
+  const { senderId, message: text } = message;
 
-  if (timeoutIds[userId]) {
-    clearTimeout(timeoutIds[userId]); // if a timeout was set, clear it
+  if (timeoutIds[senderId]) {
+    clearTimeout(timeoutIds[senderId]); // if a timeout was set, clear it
   }
 
-  const messageBox = document.getElementById(`${id}-message`);
+  console.log(`looking for ${senderId}-message`);
+  const messageBox = document.getElementById(`${senderId}-message`);
   messageBox.innerHTML = text;
   messageBox.style.display = "block";
 
   // https://developer.mozilla.org/en-US/docs/Web/API/setTimeout
   // wait 5 seconds then hide the message
-  timeoutIds[userId] = setTimeout(() => {
-    messageBox.style.display = "none";
-    delete timeoutIds[userId]; // delete this timeout id
+  timeoutIds[senderId] = setTimeout(() => {
+    // messageBox.style.display = "none";
+    delete timeoutIds[senderId]; // delete this timeout id
   }, 5 * 1000);
 }
 
-// for testing only. TODO remove
-document.getElementById("addgopher").addEventListener("click", (e) => {
-  // add a gopher
-  addGopher(random(0, 1000), "go gopher");
-});
+function sendMessage(e) {
+  const sendMessageBox = document.getElementById("sendmessagebox");
+  makeRequest("POST", "/broadcast", { message: sendMessageBox.value }, () => {
+    sendMessageBox.value = "";
+  });
+}
 
-// handle send message button TODO
-document.getElementById("sendMessage").addEventListener("click", (e) => {
-  makeRequest("POST", "/broadcast", { message }, () => {});
+// handle send message button
+document.getElementById("sendMessage").addEventListener("click", sendMessage);
+
+// handle pressing enter after entering a message
+document.getElementById("sendmessagebox").addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    sendMessage(e);
+  }
 });
 
 // get all users to draw initial gophers on the screen
 makeRequest("GET", "/allUsers", null, (status, body) => {
   console.log("rendering all users");
+  // delete all users first
+  deleteGophers();
   // TODO add all users to backend
   body.users.forEach((user) => {
     addGopher(user.id, user.username);
@@ -95,8 +114,8 @@ const socket = new WebSocket(
 
 // handle received data
 socket.onmessage = (event) => {
+  console.log("received a message:", event.data);
   const data = JSON.parse(event.data);
-  console.log("received a message", data);
 
   switch (data.messageType) {
     case "text":
