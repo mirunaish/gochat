@@ -25,31 +25,23 @@ export function getCookie() {
   return cookieMap.jwt;
 }
 
-/** make get request to server */
-export function AjaxGet(url, handler) {
-  try {
-    const xhr = new XMLHttpRequest();
-    xhr.open("GET", SERVER_URL + url, true);
-    xhr.setRequestHeader("Authorization", "Bearer " + getCookie());
-    xhr.send();
-
-    xhr.onload = () => handler(xhr.status, JSON.parse(xhr.response));
-  } catch {
-    alert("something went wrong. please try again");
-  }
-}
-
-/** make post request to server */
-export function AjaxPost(url, body, handler) {
-  try {
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", SERVER_URL + url, true);
-    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-    xhr.setRequestHeader("Authentication", "Bearer " + getCookie());
-    xhr.send(JSON.stringify(body));
-
-    xhr.onload = () => handler(xhr.status, JSON.parse(xhr.response));
-  } catch {
-    alert("something went wrong. please try again");
-  }
+/** make request to server */
+export function makeRequest(method, url, body, handler) {
+  fetch(SERVER_URL + url, {
+    method: method,
+    headers: {
+      Authorization: "Bearer " + getCookie(),
+    },
+    body,
+  })
+    .then(async (response) => {
+      if (response.ok) {
+        const data = await response.json();
+        handler(response.status, data);
+      } else throw new Error(`status code was${response.status}`);
+    })
+    .catch((error) => {
+      alert("something went wrong. please try again");
+      console.error(error);
+    });
 }

@@ -1,6 +1,6 @@
 // adapted from https://medium.com/swlh/how-to-create-your-first-login-page-with-html-css-and-javascript-602dd71144f1
 
-import { setCookie, AjaxPost } from "./common.js";
+import { setCookie, makePostRequest } from "./common.js";
 
 // -------- signup ---------
 
@@ -17,13 +17,15 @@ signupButton.addEventListener("click", (e) => {
   const password = signupForm.password.value;
 
   // make signup request to server
-  AjaxPost("/signup", { username, email, password }, (status, response) => {
-    console.log(status, response);
-    if (status == 200) {
+  makeRequest(
+    "POST",
+    "/signup",
+    { username, email, password },
+    (status, response) => {
       setCookie(response);
       window.location.assign("./index.html");
-    } else alert("something went wrong. please try again");
-  });
+    }
+  );
 });
 
 // -------- login ---------
@@ -37,11 +39,10 @@ loginButton.addEventListener("click", (e) => {
   const password = loginForm.password.value;
 
   // make signup request to server
-  AjaxPost("/login", { email, password }, (status, response) => {
+  makeRequest("POST", "/login", { email, password }, (status, response) => {
     console.log(status, response);
-    if (status == 200) {
-      setCookie(response.jwt);
-      window.location.assign("./index.html");
-    } else alert("something went wrong. please try again");
+
+    setCookie(response.jwt);
+    window.location.assign("./index.html");
   });
 });

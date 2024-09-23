@@ -1,4 +1,4 @@
-import { random, getCookie, AjaxGet, AjaxPost } from "./common.js";
+import { random, getCookie, makeRequest } from "./common.js";
 import { SERVER_HOST, SERVER_PORT } from "./consts.js";
 
 // if no jwt, go to login page
@@ -73,11 +73,11 @@ document.getElementById("addgopher").addEventListener("click", (e) => {
 
 // handle send message button TODO
 document.getElementById("sendMessage").addEventListener("click", (e) => {
-  AjaxPost("/broadcast", { message }, () => {});
+  makeRequest("POST", "/broadcast", { message }, () => {});
 });
 
 // get all users to draw initial gophers on the screen
-AjaxGet("/allUsers", (status, body) => {
+makeRequest("GET", "/allUsers", null, (status, body) => {
   // TODO add all users to backend
   body.users.forEach((user) => {
     addGopher(user.id, user.username);
