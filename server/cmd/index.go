@@ -19,14 +19,12 @@ func main() {
 	err := godotenv.Load("./.env")
 	if err != nil {
 		log.Fatalf("main: could not load .env: %s", err.Error())
-		return
 	}
 
 	// connect to database
 	err = database.Connect()
 	if err != nil {
 		log.Fatalf("main: could not connect to database: %s", err.Error())
-		return
 	}
 
 	r := gin.New()            // create router

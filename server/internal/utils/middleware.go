@@ -74,7 +74,7 @@ func JSONBinder[T any]() gin.HandlerFunc {
 		// bind/parse the received JSON to the request struct
 		err := c.BindJSON(&request)
 		if err != nil {
-			log.Printf("middleware: failed to bind json")
+			log.Print("middleware: failed to bind json")
 			HandleRouterError(c, err)
 			c.Abort()
 			return

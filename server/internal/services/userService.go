@@ -18,7 +18,7 @@ func CreateUser(email, username, password string) (*models.User, error) {
 	// hash password
 	password, err := utils.HashPassword(password)
 	if err != nil {
-		log.Fatalf("user service: failed to hash password: %s", err.Error())
+		log.Printf("user service: failed to hash password: %s", err.Error())
 		return nil, err
 	}
 
@@ -28,7 +28,7 @@ func CreateUser(email, username, password string) (*models.User, error) {
 	err = database.CreateUser(&newUser)
 	if err != nil {
 		// TODO better error messages here
-		log.Fatalf("user service: failed to create user: %s", err.Error())
+		log.Printf("user service: failed to create user: %s", err.Error())
 		return nil, err
 	}
 
@@ -44,7 +44,7 @@ func GetActiveUsers() ([]*models.User, error) {
 		// get user with this user id
 		user, err := database.GetUser(sub.UserId)
 		if err != nil {
-			log.Fatalf("user service: failed to get users: %s", err.Error())
+			log.Printf("user service: failed to get users: %s", err.Error())
 			return nil, err
 		}
 

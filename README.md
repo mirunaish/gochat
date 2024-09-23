@@ -60,6 +60,7 @@ I learned:
 - Go structs and interfaces and how they can be used to mimic OOP
 - working with pointers in Go
 - deferring functions to clean up / close resources before returning / panicking
+- log.Fatal() exits the program...
 - GORM, a GO ORM
 - how to combine http and websocket in a single app
 - how to create a complex websocket server with multiple subscribers that don't all communicate to each other

@@ -28,7 +28,7 @@ func getJwtKey() ([]byte, error) {
 	key := os.Getenv("JWT_KEY")
 	keyBytes, err := base64.StdEncoding.DecodeString(key)
 	if err != nil {
-		log.Fatalf("auth service: failed to decode jwt key (check your environment variable)")
+		log.Print("auth service: failed to decode jwt key (check your environment variable)")
 		return nil, err
 	}
 
@@ -46,7 +46,7 @@ func CreateJwt(userId, email string) (string, error) {
 	claims := jwt.MapClaims{"iss": os.Getenv("ISSUER"), "alg": "HS256", "sub": userId, "iat": time.Now().Unix()}
 	token, err := jwt.NewWithClaims(jwt.SigningMethodHS256, claims).SignedString(key)
 	if err != nil {
-		log.Fatalf("auth service: failed to sign jwt")
+		log.Print("auth service: failed to sign jwt")
 		return "", err
 	}
 

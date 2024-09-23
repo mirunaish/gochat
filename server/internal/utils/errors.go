@@ -37,7 +37,7 @@ func HandleRouterError(c *gin.Context, err error) {
 		status = http.StatusInternalServerError
 	}
 
-	log.Fatalf("router error: %s", err.Error())
+	log.Printf("router error: %s", err.Error())
 
 	// send error to client
 	// gin.H creates object that easily maps to JSON for responses

@@ -27,7 +27,7 @@ func LogIn(email, password string) (string, error) {
 	// create jwt
 	jwt, err := utils.CreateJwt(user.ID, user.Email)
 	if err != nil {
-		log.Fatalf("auth service: failed to create jwt: %s", err.Error())
+		log.Printf("auth service: failed to create jwt: %s", err.Error())
 		return "", &utils.RouterError{Code: http.StatusBadRequest, Message: "failed to log in"}
 	}
 
@@ -39,14 +39,14 @@ func SignUp(email, username, password string) (string, error) {
 	// create user
 	newUser, err := CreateUser(email, username, password)
 	if err != nil {
-		log.Fatalf("routes: failed to create new user: %s", err.Error())
+		log.Printf("routes: failed to create new user: %s", err.Error())
 		return "", err
 	}
 
 	// attempt to log user in
 	jwt, err := utils.CreateJwt(newUser.ID, newUser.Email)
 	if err != nil {
-		log.Fatalf("routes: failed to log in after signup: %s", err.Error())
+		log.Printf("routes: failed to log in after signup: %s", err.Error())
 		// create new error with better message for user
 		err = &utils.RouterError{Code: http.StatusCreated, Message: "user was created, but failed to log in. please try to log in"}
 		return "", err

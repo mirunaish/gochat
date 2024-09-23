@@ -15,7 +15,7 @@ var db *gorm.DB
 // connect to database
 func Connect() error {
 	connStr := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=America/New_York",
-		os.Getenv("DB_HOST"), os.Getenv("DB_USER"), os.Getenv("DB_PASS"), os.Getenv("DB_NAME"), os.Getenv("DB_PORT"))	
+		os.Getenv("DB_HOST"), os.Getenv("DB_USER"), os.Getenv("DB_PASS"), os.Getenv("DB_NAME"), os.Getenv("DB_PORT"))
 	var err error
 
 	// connect to postgres
@@ -28,9 +28,7 @@ func Connect() error {
 	err = db.AutoMigrate(&models.User{})
 	if err != nil {
 		log.Fatal("database: failed to migrate models")
-		return err
 	}
 
 	return nil
 }
-

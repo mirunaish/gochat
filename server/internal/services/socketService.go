@@ -85,7 +85,7 @@ func Forward(message models.MessageIn, senderId string) error {
 	// send message
 	err := receiver.Send(forwarded)
 	if err != nil {
-		log.Fatalf("socket service: failed to send message: %s", err.Error())
+		log.Printf("socket service: failed to send message: %s", err.Error())
 		return &utils.RouterError{Code: http.StatusNotFound, Message: "failed to send message"}
 	}
 
@@ -99,7 +99,7 @@ func Broadcast(message models.BroadcastIn, senderId string) error {
 	// broadcast the message
 	err := socket.Broadcast(forwarded)
 	if err != nil {
-		log.Fatalf("socket service: failed to send message: %s", err.Error())
+		log.Printf("socket service: failed to send message: %s", err.Error())
 		return &utils.RouterError{Code: http.StatusNotFound, Message: "failed to send message"}
 	}
 
