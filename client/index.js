@@ -2,7 +2,7 @@ import { random, getCookie, makeRequest } from "./common.js";
 import { SERVER_HOST, SERVER_PORT } from "./consts.js";
 
 // if no jwt, go to login page
-if (getCookie() == undefined || getCookie() == "")
+if (getCookie() == undefined || getCookie() == "" || getCookie() == "undefined")
   window.location.assign("./login.html");
 
 // add a user gopher on the screen
@@ -78,6 +78,7 @@ document.getElementById("sendMessage").addEventListener("click", (e) => {
 
 // get all users to draw initial gophers on the screen
 makeRequest("GET", "/allUsers", null, (status, body) => {
+  console.log("rendering all users");
   // TODO add all users to backend
   body.users.forEach((user) => {
     addGopher(user.id, user.username);
@@ -88,14 +89,14 @@ console.log("opening socket connection...");
 // create websocket client
 const socket = new WebSocket(
   `ws://${SERVER_HOST}:${SERVER_PORT}/subscribe?Authorization=${encodeURI(
-    getCookie()
+    `Bearer ${getCookie()}`
   )}`
 );
 
 // handle received data
 socket.onmessage = (event) => {
   const data = JSON.parse(event.data);
-  console.log(data);
+  console.log("received a message", data);
 
   switch (data.messageType) {
     case "text":

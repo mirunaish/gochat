@@ -14,7 +14,9 @@ import (
 func SetUpRoutes(r *gin.Engine) {
 	// return all online users
 	r.GET("/allUsers", utils.Authenticate(), func(c *gin.Context) {
-		users, err := services.GetActiveUsers()
+		userId := c.MustGet("userId").(string)
+
+		users, err := services.GetActiveUsers(userId)
 		if err != nil {
 			utils.HandleRouterError(c, err)
 		}

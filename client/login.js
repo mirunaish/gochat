@@ -1,6 +1,6 @@
 // adapted from https://medium.com/swlh/how-to-create-your-first-login-page-with-html-css-and-javascript-602dd71144f1
 
-import { setCookie, makePostRequest } from "./common.js";
+import { setCookie, makeRequest } from "./common.js";
 
 // -------- signup ---------
 
@@ -42,7 +42,7 @@ loginButton.addEventListener("click", (e) => {
   makeRequest("POST", "/login", { email, password }, (status, response) => {
     console.log(status, response);
 
-    setCookie(response.jwt);
+    setCookie(response.token);
     window.location.assign("./index.html");
   });
 });

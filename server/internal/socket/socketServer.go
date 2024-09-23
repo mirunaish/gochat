@@ -38,7 +38,7 @@ type ChatServer struct {
 }
 
 // important to access server only through below functions to ensure locks are obtained
-var server ChatServer = ChatServer{}
+var server ChatServer = ChatServer{Subscribers: make(map[string]Subscriber)}
 
 // send a message to all subscribers
 func Broadcast(message models.MessageOut) error {

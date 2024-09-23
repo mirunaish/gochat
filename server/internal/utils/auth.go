@@ -54,9 +54,11 @@ func CreateJwt(userId, email string) (string, error) {
 }
 
 // https://www.jetbrains.com/guide/go/tutorials/authentication-for-go-apps/auth/
+// return the user id and true if the token is valid
 func ParseAndVerifyJwt(tokenSigned string) (string, bool) {
 	key, err := getJwtKey()
 	if err != nil {
+		log.Print("auth: failed to get jwt key. check your environment variable")
 		return "", false
 	}
 
@@ -67,10 +69,12 @@ func ParseAndVerifyJwt(tokenSigned string) (string, bool) {
 
 	_, err = jwt.NewParser(jwt.WithValidMethods([]string{"HS256"}), jwt.WithIssuer(os.Getenv("ISSUER"))).ParseWithClaims(tokenSigned, claims, keyfunc)
 	if err != nil {
+		log.Print("auth: failed to parse jwt")
 		return "", false
 	}
 
 	userId, err := claims.GetSubject()
+
 	// if no error, token was valid
-	return userId, err != nil
+	return userId, err == nil
 }

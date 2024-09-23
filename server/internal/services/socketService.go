@@ -4,6 +4,7 @@ import (
 	"context"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/coder/websocket"
 
@@ -40,35 +41,43 @@ func AnnounceLeft(userId string) error {
 // given a userId, initiate a socket and add them as a subscriber.
 // do read loop until connection closed, then close connection and remove subscriber
 func Subscribe(w http.ResponseWriter, r *http.Request, userId string) error {
-	// accept socket connection (?)
-	conn, err := websocket.Accept(w, r, nil)
+	// upgrade to websocket connection
+	conn, err := websocket.Accept(w, r, &websocket.AcceptOptions{OriginPatterns: []string{"*localhost:*", os.Getenv("CORS_ORIGIN")}})
 	if err != nil {
-		return err
-	}
-	defer conn.Close(websocket.StatusNormalClosure, "") // close before returning
-
-	// add subscriber to server
-	socket.AddSubscriber(userId, conn)
-	defer socket.RemoveSubscriber(userId) // make sure to clean up before returning..
-
-	err = AnnounceJoined(userId) // tell everyone that this person joined
-	if err != nil {
+		log.Printf("failed to upgrade to websocket connection %s", os.Getenv("CORS_ORIGIN"))
 		return err
 	}
 
-	defer AnnounceLeft(userId) // tell everyone that this person left
+	go func() {
+		defer conn.Close(websocket.StatusNormalClosure, "") // close before returning
 
-	// do read loop forever until something breaks
-	for {
-		// not expecting to receive any messages: users will use http to publish
-		_, _, err = conn.Read(context.Background())
+		// add subscriber to server
+		socket.AddSubscriber(userId, conn)
+		defer socket.RemoveSubscriber(userId) // make sure to clean up before returning..
+
+		err = AnnounceJoined(userId) // tell everyone that this person joined
 		if err != nil {
-			// connection was closed on the other end
-			break
+			log.Print("failed to announce that user joined")
+			// TODO let user know through a socket message
+			return
 		}
-	}
 
-	// deferred functions will run at this point
+		defer AnnounceLeft(userId) // tell everyone that this person left
+
+		// do read loop forever until something breaks
+		for {
+			// not expecting to receive any messages: users will use http to publish
+			_, _, err = conn.Read(context.Background())
+			if err != nil {
+				// connection was closed on the other end
+				break
+			}
+		}
+
+		// socket was closed
+		// deferred functions will run at this point
+	}()
+
 	return nil
 }
 

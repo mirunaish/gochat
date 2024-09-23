@@ -32,13 +32,13 @@ export function makeRequest(method, url, body, handler) {
     headers: {
       Authorization: "Bearer " + getCookie(),
     },
-    body,
+    body: body != null ? JSON.stringify(body) : null,
   })
     .then(async (response) => {
       if (response.ok) {
         const data = await response.json();
         handler(response.status, data);
-      } else throw new Error(`status code was${response.status}`);
+      } else throw new Error(`status code was ${response.status}`);
     })
     .catch((error) => {
       alert("something went wrong. please try again");

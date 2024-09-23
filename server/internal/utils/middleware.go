@@ -108,7 +108,13 @@ func Authenticate() gin.HandlerFunc {
 			return
 		}
 
-		jwt = strings.Split(jwt, " ")[1] // remove the "Bearer " part
+		parts := strings.Split(jwt, " ")
+		if len(parts) != 2 {
+			HandleRouterError(c, &RouterError{Code: http.StatusUnauthorized, Message: "Authorization header improperly formatted"})
+			c.Abort()
+			return
+		}
+		jwt = parts[1] // remove the "Bearer " part
 
 		userId, ok := ParseAndVerifyJwt(jwt)
 

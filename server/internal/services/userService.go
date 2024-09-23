@@ -35,12 +35,18 @@ func CreateUser(email, username, password string) (*models.User, error) {
 	return &newUser, nil
 }
 
-func GetActiveUsers() ([]*models.User, error) {
+// get active users. exclude self.
+func GetActiveUsers(userId string) ([]*models.User, error) {
 	subscribers := socket.GetAllSubscribers()
 
 	activeUsers := []*models.User{}
 	// loop over subscribers and append user information
 	for _, sub := range subscribers {
+		// skip myself
+		if userId == sub.UserId {
+			continue
+		}
+
 		// get user with this user id
 		user, err := database.GetUser(sub.UserId)
 		if err != nil {
