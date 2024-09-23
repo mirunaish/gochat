@@ -13,7 +13,7 @@ import (
 // set up the user-related REST routes: signup, login etc
 func SetUpRoutes(r *gin.Engine) {
 	// return all online users
-	r.GET("/allUsers", func(c *gin.Context) {
+	r.GET("/allUsers", utils.Authenticate(), func(c *gin.Context) {
 		users, err := services.GetActiveUsers()
 		if err != nil {
 			utils.HandleRouterError(c, err)

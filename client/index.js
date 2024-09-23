@@ -84,8 +84,13 @@ AjaxGet("/allUsers", (status, body) => {
   });
 });
 
+console.log("opening socket connection...");
 // create websocket client
-const socket = new WebSocket(`ws://${SERVER_HOST}:${SERVER_PORT}/subscribe`);
+const socket = new WebSocket(
+  `ws://${SERVER_HOST}:${SERVER_PORT}/subscribe?Authorization=${encodeURI(
+    getCookie()
+  )}`
+);
 
 // handle received data
 socket.onmessage = (event) => {

@@ -1,4 +1,4 @@
-import { SERVER_URL } from "./consts";
+import { SERVER_URL } from "./consts.js";
 
 export function random(start, end) {
   return start + Math.floor(Math.random() * (end - start));
@@ -30,10 +30,10 @@ export function AjaxGet(url, handler) {
   try {
     const xhr = new XMLHttpRequest();
     xhr.open("GET", SERVER_URL + url, true);
-    xhr.setRequestHeader("Authentication", "Bearer " + document.cookie.jwt);
+    xhr.setRequestHeader("Authorization", "Bearer " + getCookie());
     xhr.send();
 
-    xhr.onload = () => handler(xhr.status, xhr.response);
+    xhr.onload = () => handler(xhr.status, JSON.parse(xhr.response));
   } catch {
     alert("something went wrong. please try again");
   }
@@ -45,10 +45,10 @@ export function AjaxPost(url, body, handler) {
     let xhr = new XMLHttpRequest();
     xhr.open("POST", SERVER_URL + url, true);
     xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-    xhr.setRequestHeader("Authentication", "Bearer " + document.cookie.jwt);
+    xhr.setRequestHeader("Authentication", "Bearer " + getCookie());
     xhr.send(JSON.stringify(body));
 
-    xhr.onload = () => handler(xhr.status, xhr.response);
+    xhr.onload = () => handler(xhr.status, JSON.parse(xhr.response));
   } catch {
     alert("something went wrong. please try again");
   }

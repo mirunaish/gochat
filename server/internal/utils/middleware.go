@@ -51,7 +51,7 @@ func EnableCORS() gin.HandlerFunc {
 			c.Writer.Header().Add("Vary", "Origin")
 			c.Writer.Header().Add("Vary", "Access-Control-Request-Method")
 			c.Writer.Header().Add("Vary", "Access-Control-Request-Headers")
-			c.Writer.Header().Add("Access-Control-Allow-Headers", "Content-Type, Origin, Accept, token")
+			c.Writer.Header().Add("Access-Control-Allow-Headers", "Content-Type, Origin, Accept, Authorization")
 			c.Writer.Header().Add("Access-Control-Allow-Methods", "GET, POST,OPTIONS")
 
 			c.Status(http.StatusOK)
@@ -90,15 +90,25 @@ func JSONBinder[T any]() gin.HandlerFunc {
 // auth middleware
 func Authenticate() gin.HandlerFunc {
 	return func(c *gin.Context) {
+		var jwt string
+
 		// get jwt header
 		header := c.Request.Header["Authorization"]
-		if len(header) != 1 {
+		if len(header) == 1 {
+			// jwt is in header
+			jwt = header[0]
+		} else if c.Query("Authorization") != "" {
+			// jwt is in query
+			// (can't send headers with requests to ws://)
+			jwt = c.Query("Authorization")
+		} else {
+			// could not find jwt
 			HandleRouterError(c, &RouterError{Code: http.StatusUnauthorized, Message: "unauthorized: please log in"})
 			c.Abort()
 			return
 		}
 
-		jwt := strings.Split(header[0], " ")[1]
+		jwt = strings.Split(jwt, " ")[1] // remove the "Bearer " part
 
 		userId, ok := ParseAndVerifyJwt(jwt)
 
