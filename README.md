@@ -62,8 +62,9 @@ _chat page_
 1. Create a local Postgres database. Tables will be created automatically when first running the program.
 2. Generate a secret key for signing JWTs, or enter a random string (not secure).
 3. Duplicate `.env.template` and rename it to `.env`. Fill in the values.
-4. `cd server`
-5. Run `go run ./cmd/`
+4. You may have to change the go version on line 3 of `go.mod` to the version installed on your system
+5. `cd server`
+6. Run `go run ./cmd/`
 
 ### Client
 
@@ -117,7 +118,7 @@ What didn't work:
 - I tried signing up for Github Student for potential free deployment, but they still haven't processed my application.
 - I signed up for Mogenius because they promised free deployment but it was a lie.
 - I made an Oracle Cloud account because they promised a free database but they thought I gave them false information (?).
-- I tried to create an AWS Elastic Beanstalk instance but it failed three times for different reasons.
+- I tried to create an AWS Elastic Beanstalk instance 11 times and each time it failed for a different reason.
 
 ## Authors
 
