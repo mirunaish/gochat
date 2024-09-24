@@ -67,9 +67,10 @@ _chat page_
 
 ### Client
 
-1. Install the Live Server extension for VSCode
-2. Start the server
-3. Open a browser (not Firefox, but Firefox Nightly is ok) and navigate to 127.0.0.1:5500/client
+1. Edit `client\consts.js` with your server host and port
+2. Install the Live Server extension for VSCode
+3. Start the server
+4. Open a browser (not Firefox, but Firefox Nightly is ok) and navigate to 127.0.0.1:5500/client
 
 ## Who Did What?
 
