@@ -1,8 +1,8 @@
 # Go Chatroom
 
 Client deployed on Render at https://go-chat-frontend-1x27.onrender.com/
-Server deployment is pending. I may or may not succeed in deploying after the
-assignment is submitted.
+
+Server deployed on AWS Elastic Beanstalk at http://gochat.us-east-1.elasticbeanstalk.com/
 
 Navigate to the link above and create an account.
 (The layout breaks on Firefox, so I recommend Firefox Nightly or Chrome)
@@ -118,7 +118,7 @@ What didn't work:
 - I tried signing up for Github Student for potential free deployment, but they still haven't processed my application.
 - I signed up for Mogenius because they promised free deployment but it was a lie.
 - I made an Oracle Cloud account because they promised a free database but they thought I gave them false information (?).
-- I tried to deoploy to AWS Elastic Beanstalk ~23 times (i lost count) and each time it failed for a different reason. The current issue is that pinging returns 502 Bad Gateway.
+- I tried to deoploy to AWS Elastic Beanstalk ~25 times (i lost count) and each time it failed for a different reason. It worked eventually
 
 ## Authors
 

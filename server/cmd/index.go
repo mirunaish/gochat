@@ -1,10 +1,8 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
-	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -34,19 +32,18 @@ func main() {
 	r.Use(gin.Recovery())     // recover from panics
 	r.Use(utils.EnableCORS()) // enable cors
 
-	// ping
-	r.GET("/ping", func(c *gin.Context) {
+	// health check route (ping)
+	r.GET("/", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"message": "pong"})
 	})
 
 	routes.SetUpRoutes(r)       // set up user routes
 	routes.SetUpSocketRoutes(r) // set up socket-related http routes
 
-	// listen on host:port
-	host := os.Getenv("HOST")
-	port := os.Getenv("PORT")
-	err = r.Run(fmt.Sprintf("%s:%s", host, port))
+	// listen on host:5000 (?)
+	err = r.Run(":5000")
 	if err != nil {
-		log.Fatalf("main: failed to run http server: %s", err.Error())
+		log.Printf("main: failed to run http server: %s", err.Error())
 	}
+	log.Print("shutting down gochat.")
 }
