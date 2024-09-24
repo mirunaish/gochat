@@ -1,5 +1,15 @@
 # Go Chatroom
 
+Client deployed on Render at https://go-chat-frontend-1x27.onrender.com/
+Server deployment is pending. I may or may not succeed in deploying after the
+assignment is submitted.
+
+Navigate to the link above and create an account.
+(The layout breaks on Firefox, so I recommend Firefox Nightly or Chrome)
+If there are other users online, they will appear on the screen represented as
+little blue gophers. Messages they send will appear above their heads. Use the
+message box at the bottom of the screen to boardcast a message to everyone.
+
 ## What you built?
 
 I had two goals for this assignment:
@@ -7,8 +17,8 @@ I had two goals for this assignment:
 1. learn a new programming language. I chose Go because it has been increasing
    in popularity and it seemed somewhat different from other programming languages
    I know.
-2. deploy a dockerized application on AWS. Previously my only deployment
-   experience was in Render, and AWS and Docker seem widely used.
+2. deploy an application on AWS / a similar cloud platform. Previously my only
+   deployment experience was in Render.
 
 I built a simple chatroom application. Users can create an account and join the
 chatroom and communicate in real time with other users. Messages are not saved,
@@ -39,19 +49,27 @@ A minimal HTML+JavaScript client designed to connect to the server.
 
 ![login page](./media/loginpage.png)
 
-_Login page. Note that I may have made small styling changes since this screenshot was taken_
+_Login page. Note that I have made small styling changes since this screenshot was taken_
 
 ![go chat](./media/go_chat.png)
 
 _chat page_
 
-## Running instructions
+## How to run locally
 
-1. Create a postgres database. Tables will be created automatically when first running the program.
-2. Generate a secret key for signing JWTs.
+### Server
+
+1. Create a local Postgres database. Tables will be created automatically when first running the program.
+2. Generate a secret key for signing JWTs, or enter a random string (not secure).
 3. Duplicate `.env.template` and rename it to `.env`. Fill in the values.
 4. `cd server`
 5. Run `go run ./cmd/`
+
+### Client
+
+1. Install the Live Server extension for VSCode
+2. Start the server
+3. Open a browser (not Firefox, but Firefox Nightly is ok) and navigate to 127.0.0.1:5500/client
 
 ## Who Did What?
 
@@ -62,16 +80,17 @@ I did everything. (see Acknowledgments section for links to tutorials)
 I learned:
 
 - the module / package structure of Go projects and how to import files
-- how to create REST routes and middleware using Gin
 - generic functions and type parameters in Go
 - error checking in Go, how to create custom errors, handling different error types
 - Go structs and interfaces and how they can be used to mimic OOP
 - working with pointers in Go
 - deferring functions to clean up / close resources before returning / panicking
-- log.Fatal() exits the program...
+- log.Fatal() isn't like console.error() like i first assumed. it exits the program...
+- how to create REST routes and middleware using Gin
 - GORM, a GO ORM
 - how to combine http and websocket in a single app
-- how to create a complex websocket server with multiple subscribers that don't all communicate to each other
+- how to create a complex websocket server with multiple subscribers that don't
+  all communicate to each other (not currently used)
 - how to authenticate requests sent over websockets
 - how to color console output
 - how to store jwt in a cookie using javascript
@@ -80,23 +99,24 @@ I learned:
 
 What worked:
 
-- everything, eventually, hopefully
+- everything, eventually
 
 What didn't work:
 
 - I initially tried gorilla/mux, but that was more difficult to use so I switched to Gin.
 - originally I tried to have multiple group chatrooms, but that got complicated.
-- then i wanted to implement direct messages between two users, but the client UI would've been complicated.
-- error checking and reporting in the client is not as robust as it should be, for time reasons
+- then i implemented direct messages between two users, but didn't implement the UI for it.
+- error checking and reporting in the client is not as robust as it should be, i prioritized making it work
 - the design of the login page isn't responsive (it breaks if the window is resized)
 - for some reason the layout breaks on Firefox (but not on Firefox Nightly)
 - I had difficulty setting up the formatter provided by the VS Code Go extension.
 - staticcheck keeps saying functions defined in a different file in the same package are undefined...
-- adding debugging logs in go is difficult (i couldn't log the request body to the console)
+- adding debugging logs in go can be difficult (i couldn't log the request body to the console)
 - I made my AWS account more than a year ago so my free tier expired.
-- I tried signing up for Github Student for potential free DataOcean, but they still haven't processed my application.
+- I tried signing up for Github Student for potential free deployment, but they still haven't processed my application.
 - I signed up for Mogenius because they promised free deployment but it was a lie.
 - I made an Oracle Cloud account because they promised a free database but they thought I gave them false information (?).
+- I tried to create an AWS Elastic Beanstalk instance but it failed three times for different reasons.
 
 ## Authors
 
