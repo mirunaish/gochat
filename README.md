@@ -118,7 +118,7 @@ What didn't work:
 - I tried signing up for Github Student for potential free deployment, but they still haven't processed my application.
 - I signed up for Mogenius because they promised free deployment but it was a lie.
 - I made an Oracle Cloud account because they promised a free database but they thought I gave them false information (?).
-- I tried to create an AWS Elastic Beanstalk instance 11 times and each time it failed for a different reason.
+- I tried to deoploy to AWS Elastic Beanstalk ~23 times (i lost count) and each time it failed for a different reason. The current issue is that pinging returns 502 Bad Gateway.
 
 ## Authors
 
@@ -147,6 +147,15 @@ Miruna Palaghean
 - [CSS Flexbox Layout Guide](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
 - [Create a JavaScript AJAX Post Request](https://code.tutsplus.com/create-a-javascript-ajax-post-request-with-and-without-jquery--cms-39195a)
 - [Writing WebSocket client applications](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API/Writing_WebSocket_client_applications)
+
+### Deployment tutorials / documentation
+
+- [QuickStart: Deploy a Go application to Elastic Beanstalk](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/go-quickstart.html)
+- [Using the Elastic Beanstalk Go platform](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/go-environment.html)
+- [Buildfile and Procfile](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/platforms-linux-extend.build-proc.html)
+- [Adding a database to your Elastic Beanstalk environment](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.managing.db.html)
+- [Platform hooks](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/platforms-linux-extend.hooks.html)
+- [Using psql to connect to your RDS for PostgreSQL DB instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ConnectToPostgreSQLInstance.html#USER_ConnectToPostgreSQLInstance.psql)
 
 ### Other
 

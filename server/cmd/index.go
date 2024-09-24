@@ -18,7 +18,9 @@ func main() {
 	// load environment variables from .env
 	err := godotenv.Load("./.env")
 	if err != nil {
-		log.Fatalf("main: could not load .env: %s", err.Error())
+		// in production there is no .env, the environment variables are passed to the app some other way
+		// if in development, make sure the file is in server root
+		log.Printf("main: could not load .env: %s", err.Error())
 	}
 
 	// connect to database

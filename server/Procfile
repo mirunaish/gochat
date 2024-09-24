@@ -1,1 +1,1 @@
-web: ./gochat
+web: go run ./cmd/

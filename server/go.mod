@@ -1,6 +1,6 @@
 module github.com/dartmouth-cs98-24f/hack-a-thing-1-miruna-palaghean/server
 
-go 1.23.1
+go 1.22.5
 
 require (
 	github.com/coder/websocket v1.8.12
