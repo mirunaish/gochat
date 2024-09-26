@@ -1,10 +1,10 @@
 package utils
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"os"
+	"regexp"
 	"strings"
 	"time"
 
@@ -45,11 +45,20 @@ func Logger() gin.HandlerFunc {
 
 func EnableCORS() gin.HandlerFunc {
 	return func(c *gin.Context) {
+
+		// manually set access-control-allow-origin to allow the origin this request is coming from
+		// (if from my allowed origin in .env) (allows both http and https)
+		var cors_origin string
+		origin := c.Request.Header.Get("Origin")
+		if regexp.MustCompile(`^https?://` + regexp.QuoteMeta(os.Getenv("CORS_ORIGIN"))).MatchString(origin) {
+			cors_origin = origin
+		}
+
 		// respond to cors preflight requests
 		// if the type is options, respond with cors headers
 		if c.Request.Method == "OPTIONS" {
 			// https://stackoverflow.com/questions/22972066/how-to-handle-preflight-cors-requests-on-a-go-server
-			c.Writer.Header().Add("Access-Control-Allow-Origin", fmt.Sprintf("https://%s/*", os.Getenv("CORS_ORIGIN")))
+			c.Writer.Header().Add("Access-Control-Allow-Origin", cors_origin)
 			c.Writer.Header().Add("Vary", "Origin")
 			c.Writer.Header().Add("Vary", "Access-Control-Request-Method")
 			c.Writer.Header().Add("Vary", "Access-Control-Request-Headers")
@@ -62,7 +71,7 @@ func EnableCORS() gin.HandlerFunc {
 
 		// to all other requests, add cors header
 		// https://www.stackhawk.com/blog/golang-cors-guide-what-it-is-and-how-to-enable-it/
-		c.Writer.Header().Set("Access-Control-Allow-Origin", fmt.Sprintf("https://%s/*", os.Getenv("CORS_ORIGIN")))
+		c.Writer.Header().Set("Access-Control-Allow-Origin", cors_origin)
 
 		c.Next()
 	}

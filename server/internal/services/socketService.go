@@ -2,6 +2,7 @@ package services
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -42,7 +43,7 @@ func AnnounceLeft(userId string) error {
 // do read loop until connection closed, then close connection and remove subscriber
 func Subscribe(w http.ResponseWriter, r *http.Request, userId string) error {
 	// upgrade to websocket connection
-	conn, err := websocket.Accept(w, r, &websocket.AcceptOptions{OriginPatterns: []string{"*localhost:*", "*127.0.0.1:*", os.Getenv("CORS_ORIGIN")}})
+	conn, err := websocket.Accept(w, r, &websocket.AcceptOptions{OriginPatterns: []string{"*localhost:*", "*127.0.0.1:*", fmt.Sprintf("*%s*", os.Getenv("CORS_ORIGIN"))}})
 	if err != nil {
 		log.Printf("failed to upgrade to websocket connection %s", os.Getenv("CORS_ORIGIN"))
 		return err

@@ -96,6 +96,7 @@ I learned:
 - how to authenticate requests sent over websockets
 - how to color console output
 - how to store jwt in a cookie using javascript
+- how to enable HTTPS with Certbot
 
 ![generics](media/generics.png)
 
@@ -118,7 +119,7 @@ What didn't work:
 - I tried signing up for Github Student for potential free deployment, but they still haven't processed my application.
 - I signed up for Mogenius because they promised free deployment but it was a lie.
 - I made an Oracle Cloud account because they promised a free database but they thought I gave them false information (?).
-- I tried to deoploy to AWS Elastic Beanstalk ~25 times (i lost count) and each time it failed for a different reason. It worked eventually
+- I tried to deoploy to AWS Elastic Beanstalk ~30 times (i lost count) and each time it failed for a different reason. It worked eventually
 
 ## Authors
 
@@ -156,10 +157,10 @@ Miruna Palaghean
 - [Adding a database to your Elastic Beanstalk environment](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.managing.db.html)
 - [Platform hooks](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/platforms-linux-extend.hooks.html)
 - [Using psql to connect to your RDS for PostgreSQL DB instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ConnectToPostgreSQLInstance.html#USER_ConnectToPostgreSQLInstance.psql)
+- [Certbot Instructions](https://certbot.eff.org/instructions?ws=nginx&os=snap)
 
 ### Other
 
-- enabled https using [Certbot](https://certbot.eff.org/)
 - various online sources that i glanced at briefly, linked in the code where they were used
 
 ### Image sources
