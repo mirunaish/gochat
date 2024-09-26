@@ -1,8 +1,10 @@
 package utils
 
 import (
+	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 	"time"
 
@@ -47,7 +49,7 @@ func EnableCORS() gin.HandlerFunc {
 		// if the type is options, respond with cors headers
 		if c.Request.Method == "OPTIONS" {
 			// https://stackoverflow.com/questions/22972066/how-to-handle-preflight-cors-requests-on-a-go-server
-			c.Writer.Header().Add("Access-Control-Allow-Origin", "*")
+			c.Writer.Header().Add("Access-Control-Allow-Origin", fmt.Sprintf(os.Getenv("CORS_ORIGIN")))
 			c.Writer.Header().Add("Vary", "Origin")
 			c.Writer.Header().Add("Vary", "Access-Control-Request-Method")
 			c.Writer.Header().Add("Vary", "Access-Control-Request-Headers")
@@ -60,7 +62,7 @@ func EnableCORS() gin.HandlerFunc {
 
 		// to all other requests, add cors header
 		// https://www.stackhawk.com/blog/golang-cors-guide-what-it-is-and-how-to-enable-it/
-		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+		c.Writer.Header().Set("Access-Control-Allow-Origin", fmt.Sprintf(os.Getenv("CORS_ORIGIN")))
 
 		c.Next()
 	}

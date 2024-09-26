@@ -1,5 +1,5 @@
 import { random, getCookie, makeRequest } from "./common.js";
-import { SERVER_HOST, SERVER_PORT } from "./consts.js";
+import { SERVER_URL } from "./consts.js";
 
 // if no jwt, go to login page
 if (getCookie() == undefined || getCookie() == "" || getCookie() == "undefined")
@@ -107,7 +107,7 @@ makeRequest("GET", "/allUsers", null, (status, body) => {
 console.log("opening socket connection...");
 // create websocket client
 const socket = new WebSocket(
-  `ws://${SERVER_HOST}:${SERVER_PORT}/subscribe?Authorization=${encodeURI(
+  `${SERVER_URL("ws")}/subscribe?Authorization=${encodeURI(
     `Bearer ${getCookie()}`
   )}`
 );
