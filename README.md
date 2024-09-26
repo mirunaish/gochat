@@ -9,43 +9,16 @@ Navigate to the link above and create an account.
 If there are other users online, they will appear on the screen represented as
 little blue gophers. Messages they send will appear above their heads. Use the
 message box at the bottom of the screen to boardcast a message to everyone.
+Messages are not saved, so they disappear after a few seconds, making the
+experience closer to talking in-person.
 
-## What you built?
-
-I had two goals for this assignment:
+I had two goals for this project:
 
 1. learn a new programming language. I chose Go because it has been increasing
    in popularity and it seemed somewhat different from other programming languages
    I know.
 2. deploy an application on AWS / a similar cloud platform. Previously my only
    deployment experience was in Render.
-
-I built a simple chatroom application. Users can create an account and join the
-chatroom and communicate in real time with other users. Messages are not saved,
-so they disappear after a few seconds, making the experience closer to talking
-in-person.
-
-### Server
-
-The focus of this project was the Go backend - a websocket server that enables
-bidirectional communication. It connects to a Postgres database that holds
-accounts.
-
-![ping](media/first_ping.png)
-
-_First ping_
-
-![signup](media/signup.png)
-
-_Signup worked on the first try! Go linting is pretty good_
-
-![console output](media/logger_output.png)
-
-_Custom logger middleware output_
-
-### Client
-
-A minimal HTML+JavaScript client designed to connect to the server.
 
 ![login page](./media/loginpage.png)
 
@@ -68,58 +41,26 @@ _chat page_
 
 ### Client
 
-1. Edit `client\consts.js` with your server host and port
+1. Edit `client\consts.js` with your server host and/or port
 2. Install the Live Server extension for VSCode
 3. Start the server
 4. Open a browser (not Firefox, but Firefox Nightly is ok) and navigate to 127.0.0.1:5500/client
 
-## Who Did What?
+## Technical details
 
-I did everything. (see Acknowledgments section for links to tutorials)
+### Server
 
-## What you learned
+A websocket server that enables bidirectional communication.
+It connects to a Postgres database through GORM, a Go ORM.
+Uses the Gin framework to handle HTTP/HTTPS requests.
+CORS is configured to accept connections from the client on Render.
+Everything is authenticated using JWT.
 
-I learned:
+### Client
 
-- the module / package structure of Go projects and how to import files
-- generic functions and type parameters in Go
-- error checking in Go, how to create custom errors, handling different error types
-- Go structs and interfaces and how they can be used to mimic OOP
-- working with pointers in Go
-- deferring functions to clean up / close resources before returning / panicking
-- log.Fatal() isn't like console.error() like i first assumed. it exits the program...
-- how to create REST routes and middleware using Gin
-- GORM, a GO ORM
-- how to combine http and websocket in a single app
-- how to create a complex websocket server with multiple subscribers that don't
-  all communicate to each other (not currently used)
-- how to authenticate requests sent over websockets
-- how to color console output
-- how to store jwt in a cookie using javascript
-- how to enable HTTPS with Certbot
-
-![generics](media/generics.png)
-
-What worked:
-
-- everything, eventually
-
-What didn't work:
-
-- I initially tried gorilla/mux, but that was more difficult to use so I switched to Gin.
-- originally I tried to have multiple group chatrooms, but that got complicated.
-- then i implemented direct messages between two users, but didn't implement the UI for it.
-- error checking and reporting in the client is not as robust as it should be, i prioritized making it work
-- the design of the login page isn't responsive (it breaks if the window is resized)
-- for some reason the layout breaks on Firefox (but not on Firefox Nightly)
-- I had difficulty setting up the formatter provided by the VS Code Go extension.
-- staticcheck keeps saying functions defined in a different file in the same package are undefined...
-- adding debugging logs in go can be difficult (i couldn't log the request body to the console)
-- I made my AWS account more than a year ago so my free tier expired.
-- I tried signing up for Github Student for potential free deployment, but they still haven't processed my application.
-- I signed up for Mogenius because they promised free deployment but it was a lie.
-- I made an Oracle Cloud account because they promised a free database but they thought I gave them false information (?).
-- I tried to deoploy to AWS Elastic Beanstalk ~30 times (i lost count) and each time it failed for a different reason. It worked eventually
+A minimal HTML + JavaScript client.
+The layout breaks on Firefox (but not on Firefox Nightly).
+Error checking and reporting especially in the client is a work in progress.
 
 ## Authors
 
@@ -166,6 +107,5 @@ Miruna Palaghean
 ### Image sources
 
 - https://go.dev/blog/gophergala
-- https://bitfieldconsulting.com/posts/type-parameters
 - https://go.dev/blog/gopher
 - https://github.com/golang-samples/gopher-vector
