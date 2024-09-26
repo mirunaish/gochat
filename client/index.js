@@ -71,7 +71,7 @@ function handleMessage(message) {
   // https://developer.mozilla.org/en-US/docs/Web/API/setTimeout
   // wait 5 seconds then hide the message
   timeoutIds[senderId] = setTimeout(() => {
-    // messageBox.style.display = "none";
+    messageBox.style.display = "none";
     delete timeoutIds[senderId]; // delete this timeout id
   }, 5 * 1000);
 }
