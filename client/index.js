@@ -107,7 +107,7 @@ makeRequest("GET", "/allUsers", null, (status, body) => {
 console.log("opening socket connection...");
 // create websocket client
 const socket = new WebSocket(
-  `${SERVER_URL("ws")}/subscribe?Authorization=${encodeURI(
+  `${SERVER_URL("wss")}/subscribe?Authorization=${encodeURI(
     `Bearer ${getCookie()}`
   )}`
 );

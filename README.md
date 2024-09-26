@@ -159,6 +159,7 @@ Miruna Palaghean
 
 ### Other
 
+- enabled https using [Certbot](https://certbot.eff.org/)
 - various online sources that i glanced at briefly, linked in the code where they were used
 
 ### Image sources
