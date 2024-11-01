@@ -27,7 +27,7 @@ export function getCookie() {
 
 /** make request to server */
 export function makeRequest(method, url, body, handler) {
-  fetch(SERVER_URL("https") + url, {
+  fetch(SERVER_URL("http") + url, {
     method: method,
     headers: {
       Authorization: "Bearer " + getCookie(),

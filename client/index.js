@@ -98,7 +98,6 @@ makeRequest("GET", "/allUsers", null, (status, body) => {
   console.log("rendering all users");
   // delete all users first
   deleteGophers();
-  // TODO add all users to backend
   body.users.forEach((user) => {
     addGopher(user.id, user.username);
   });
@@ -107,7 +106,7 @@ makeRequest("GET", "/allUsers", null, (status, body) => {
 console.log("opening socket connection...");
 // create websocket client
 const socket = new WebSocket(
-  `${SERVER_URL("wss")}/subscribe?Authorization=${encodeURI(
+  `${SERVER_URL("ws")}/subscribe?Authorization=${encodeURI(
     `Bearer ${getCookie()}`
   )}`
 );

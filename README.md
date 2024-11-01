@@ -41,7 +41,7 @@ _chat page_
 
 ### Client
 
-1. Edit `client\consts.js` with your server host and/or port
+1. Edit `client\consts.js` with your server host and/or port, and change SECURE to false
 2. Install the Live Server extension for VSCode
 3. Start the server
 4. Open a browser (not Firefox, but Firefox Nightly is ok) and navigate to 127.0.0.1:5500/client
@@ -63,7 +63,8 @@ This means that users are not saved if the server restarts.
 ### Client
 
 A minimal HTML + JavaScript client.
-The layout breaks on Firefox (but not on Firefox Nightly).
+The layout used to break on Firefox but I believe it works now.
+If it breaks on your Firefox use a different browser.
 Error checking and reporting especially in the client is a work in progress.
 
 ## Authors
