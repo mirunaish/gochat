@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/dartmouth-cs98-24f/hack-a-thing-1-miruna-palaghean/server/internal/models"
+	"github.com/mirunaish/gochat/server/internal/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )

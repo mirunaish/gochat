@@ -5,9 +5,9 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/dartmouth-cs98-24f/hack-a-thing-1-miruna-palaghean/server/internal/models"
-	"github.com/dartmouth-cs98-24f/hack-a-thing-1-miruna-palaghean/server/internal/services"
-	"github.com/dartmouth-cs98-24f/hack-a-thing-1-miruna-palaghean/server/internal/utils"
+	"github.com/mirunaish/gochat/server/internal/models"
+	"github.com/mirunaish/gochat/server/internal/services"
+	"github.com/mirunaish/gochat/server/internal/utils"
 )
 
 // set up the user-related REST routes: signup, login etc

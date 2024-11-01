@@ -3,7 +3,7 @@ package database
 import (
 	"errors"
 
-	"github.com/dartmouth-cs98-24f/hack-a-thing-1-miruna-palaghean/server/internal/models"
+	"github.com/mirunaish/gochat/server/internal/models"
 )
 
 // fake database: map in server memory.

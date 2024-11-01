@@ -4,8 +4,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/dartmouth-cs98-24f/hack-a-thing-1-miruna-palaghean/server/internal/database"
-	"github.com/dartmouth-cs98-24f/hack-a-thing-1-miruna-palaghean/server/internal/utils"
+	"github.com/mirunaish/gochat/server/internal/database"
+	"github.com/mirunaish/gochat/server/internal/utils"
 )
 
 // find user and return a jwt

@@ -5,10 +5,10 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/dartmouth-cs98-24f/hack-a-thing-1-miruna-palaghean/server/internal/models"
-	"github.com/dartmouth-cs98-24f/hack-a-thing-1-miruna-palaghean/server/internal/services"
-	"github.com/dartmouth-cs98-24f/hack-a-thing-1-miruna-palaghean/server/internal/socket"
-	"github.com/dartmouth-cs98-24f/hack-a-thing-1-miruna-palaghean/server/internal/utils"
+	"github.com/mirunaish/gochat/server/internal/models"
+	"github.com/mirunaish/gochat/server/internal/services"
+	"github.com/mirunaish/gochat/server/internal/socket"
+	"github.com/mirunaish/gochat/server/internal/utils"
 )
 
 // set up the http routes that accept a new socket connection etc

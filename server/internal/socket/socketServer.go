@@ -6,7 +6,7 @@ import (
 	"sync"
 
 	"github.com/coder/websocket"
-	"github.com/dartmouth-cs98-24f/hack-a-thing-1-miruna-palaghean/server/internal/models"
+	"github.com/mirunaish/gochat/server/internal/models"
 )
 
 // an online user gets a socket

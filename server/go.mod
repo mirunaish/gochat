@@ -1,4 +1,4 @@
-module github.com/dartmouth-cs98-24f/hack-a-thing-1-miruna-palaghean/server
+module github.com/mirunaish/gochat/server
 
 go 1.22.5
 
