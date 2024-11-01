@@ -21,6 +21,7 @@ type DatabaseInfo struct {
 }
 
 // connect to database
+// currently unused
 func Connect() error {
 	var db_info DatabaseInfo
 

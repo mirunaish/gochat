@@ -22,10 +22,10 @@ func main() {
 	}
 
 	// connect to database
-	err = database.Connect()
-	if err != nil {
-		log.Fatalf("main: could not connect to database: %s", err.Error())
-	}
+	// err = database.Connect()
+	// if err != nil {
+	// 	log.Fatalf("main: could not connect to database: %s", err.Error())
+	// }
 
 	r := gin.New()            // create router
 	r.Use(utils.Logger())     // want to use my own custom logger

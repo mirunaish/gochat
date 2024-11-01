@@ -51,10 +51,14 @@ _chat page_
 ### Server
 
 A websocket server that enables bidirectional communication.
-It connects to a Postgres database through GORM, a Go ORM.
 Uses the Gin framework to handle HTTP/HTTPS requests.
 CORS is configured to accept connections from the client on Render.
 Everything is authenticated using JWT.
+
+It used to connect to a Postgres database through GORM, a Go ORM,
+but I have commented this out to lower hosting costs.
+It now uses a map of users instead, which violates REST principles (statelessness).
+This means that users are not saved if the server restarts.
 
 ### Client
 
