@@ -27,6 +27,7 @@ export function getCookie() {
 
 /** make request to server */
 export function makeRequest(method, url, body, handler) {
+  console.log("making request to " + SERVER_URL("http"));
   fetch(SERVER_URL("http") + url, {
     method: method,
     headers: {
@@ -43,7 +44,10 @@ export function makeRequest(method, url, body, handler) {
           console.log("failed to get response data");
         }
         handler(response.status, data);
-      } else throw new Error(`status code was ${response.status}`);
+      }
+      // if not authorized, redirect to login page
+      else if (response.status == 401) window.location.assign("./login.html");
+      else throw new Error(`status code was ${response.status}`);
     })
     .catch((error) => {
       alert("something went wrong. please try again");
