@@ -2,7 +2,9 @@
 
 Client deployed on Render at https://go-chat-frontend-1x27.onrender.com/
 
-Server deployed on AWS Elastic Beanstalk at http://gochat.us-east-1.elasticbeanstalk.com/
+Server currently deployed on Render at https://go-chat-backend-8jic.onrender.com
+
+Server previously deployed on AWS Elastic Beanstalk (taken down because of high costs).
 
 Navigate to the link above and create an account.
 (The layout breaks on Firefox, so I recommend Firefox Nightly or Chrome)
@@ -27,6 +29,10 @@ _Login page. Note that I have made small styling changes since this screenshot w
 ![go chat](./media/go_chat.png)
 
 _chat page_
+
+## If deploying on AWS
+
+1. Install certbot with `sudo dnf install certbot`
 
 ## How to run locally
 

@@ -2,3 +2,5 @@
 .env
 gochat
 *.zip
+app
+*.exe

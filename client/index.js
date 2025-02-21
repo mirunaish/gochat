@@ -1,8 +1,10 @@
 import { random, getCookie, makeRequest } from "./common.js";
 import { SERVER_URL } from "./consts.js";
 
+console.log("cookie: " + getCookie());
+
 // if no jwt, go to login page
-if (getCookie() == undefined || getCookie() == "" || getCookie() == "undefined")
+if (!getCookie() || getCookie() === "null" || getCookie() === "undefined")
   window.location.assign("./login.html");
 
 // delete all user gophers from the screen
